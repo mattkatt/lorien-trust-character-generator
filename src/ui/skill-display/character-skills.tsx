@@ -4,7 +4,7 @@ import { Collapse, Typography } from 'antd'
 import { characterSkillList, CharacterSkillList } from "../../data/character-skill-list"
 import { Helpers } from "../../helpers/helpers"
 import { CharacterContext } from "../../context/character-context"
-import { SkillButton } from "../skill-display/skill-button"
+import { SkillButton } from "./skill-button"
 
 const { Paragraph } = Typography
 

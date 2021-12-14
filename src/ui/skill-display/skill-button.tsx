@@ -1,7 +1,7 @@
 import React, { FC, useContext } from "react"
 import { ICharacterSkill, IOccupationalSkill, ISkill } from "../../interfaces/skills"
 import { Button, Popover } from "antd"
-import { SkillPopoverDescription } from "./skill-popover-description"
+import { SkillPopover } from "./skill-popover"
 import { CharacterContext } from "../../context/character-context"
 import { Helpers } from "../../helpers/helpers"
 
@@ -12,7 +12,7 @@ interface ISkillButtonProps {
 export const SkillButton: FC<ISkillButtonProps> = ({ skill}) => {
     const { characterState, addCharacterSkill, addOccupationalSkill, removeCharacterSkill, removeOccupationalSkill } = useContext(CharacterContext)
     const skillType = Helpers.isOccupationalSkill(skill) ? 'occupational' : 'character';
-    const usedSkillList = characterState[skillType + 'Skills'] as Array<ISkill>;
+    const usedSkillList = Helpers.isCharacterSkill(skill) ? characterState.characterSkills : characterState.occupationalSkills;
 
     const isSelected = (): boolean => {
         return usedSkillList.some(s => s.id === skill.id)
@@ -40,7 +40,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill}) => {
 
     return (
         <Popover
-            content={<SkillPopoverDescription skill={skill} />}
+            content={<SkillPopover skill={skill} />}
             title={skill.name}
             placement={"rightBottom"}
         >

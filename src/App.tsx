@@ -6,8 +6,8 @@ import { SidePanel } from "./ui/side-panel/side-panel"
 import { AppFooter, AppHeader } from "./ui/app"
 
 import './App.css';
-import { SkillDisplay } from "./ui/skill-display/skill-display"
-import { CharacterSkills } from "./ui/character-skill-form/character-skills"
+import { OccupationalSkill } from "./ui/skill-display/occupational-skill"
+import { CharacterSkills } from "./ui/skill-display/character-skills"
 
 const App: FC = () => {
   const { Content } = Layout
@@ -22,7 +22,7 @@ const App: FC = () => {
           <Layout>
             <Content>
               <AppHeader />
-              <SkillDisplay />
+              <OccupationalSkill />
             </Content>
             <AppFooter>
               <span>

@@ -3,11 +3,12 @@ import { Alert, Card, Col, Row } from "antd"
 
 import { CharacterContext } from "../../context/character-context"
 import { occupationalSkillList } from "../../data/occupational-skill-list"
-import { camelToReadable } from "../../helpers/helpers"
+import { Helpers } from "../../helpers/helpers"
+import { SkillButton } from "./skill-button"
 
 type breakpoint = "xs" | "sm" | "md" | "lg"
 
-export const SkillDisplay: FC = () => {
+export const OccupationalSkill: FC = () => {
     const { characterState } = useContext(CharacterContext)
     const { occupationalSkills, characterSkills, characterSkillPoints } = characterState
     const [size, setSize] = useState<breakpoint>("xs")
@@ -70,21 +71,15 @@ export const SkillDisplay: FC = () => {
                 </Col>
             </Row>
             <Row style={{ margin: '15px'}} gutter={16}>
-                { Object.keys(occupationalSkillList).map(skillListKey => {
-                    return (
-                        <Col span={6} key={skillListKey}>
-                            <Card title={camelToReadable(skillListKey)}>
-                                <ul>
-                                    {occupationalSkillList[skillListKey].map(skill => {
-                                        return (
-                                            <li key={skill.id}>{skill.name}</li>
-                                        )
-                                    })}
-                                </ul>
-                            </Card>
-                        </Col>
-                    )
-                }) }
+                { Object.keys(occupationalSkillList).map(skillListKey => (
+                    <Col span={6} key={skillListKey}>
+                        <Card title={Helpers.camelToReadable(skillListKey)}>
+                            {occupationalSkillList[skillListKey].map(skill => (
+                                <SkillButton key={skill.id} skill={skill} />
+                            ))}
+                        </Card>
+                    </Col>
+                )) }
             </Row>
         </>
     )

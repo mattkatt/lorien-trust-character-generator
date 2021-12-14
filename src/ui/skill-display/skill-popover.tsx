@@ -5,7 +5,7 @@ interface ISkillPopoverDescription {
     skill: ISkill
 }
 
-export const SkillPopoverDescription: FC<ISkillPopoverDescription> = ({skill}) => {
+export const SkillPopover: FC<ISkillPopoverDescription> = ({skill}) => {
     return (
         <div style={{ maxWidth: '60vw'}}>
             {skill.description}

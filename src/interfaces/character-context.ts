@@ -1,5 +1,5 @@
-import { ICharacterState } from "./character-state";
-import { ICharacterSkill, IOccupationalSkill } from "./skills";
+import { ICharacterState } from './character-state';
+import { ICharacterSkill, IOccupationalSkill } from './skills';
 
 export interface ICharacterContext {
   characterState: ICharacterState;

@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import React, { FC } from 'react';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 interface ICollapseIcon {
   collapsed: boolean;

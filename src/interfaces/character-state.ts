@@ -1,4 +1,4 @@
-import { ICharacterSkill, IOccupationalSkill } from "./skills";
+import { ICharacterSkill, IOccupationalSkill } from './skills';
 
 export interface ICharacterState {
   characterSkillPoints: number;

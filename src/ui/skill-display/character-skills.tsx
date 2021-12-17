@@ -1,13 +1,10 @@
-import React, { FC, useContext } from "react";
-import { Collapse, Typography } from "antd";
+import React, { FC, useContext } from 'react';
+import { Collapse, Typography } from 'antd';
 
-import {
-  characterSkillList,
-  CharacterSkillList,
-} from "../../data/character-skill-list";
-import { Helpers } from "../../helpers/helpers";
-import { CharacterContext } from "../../context/character-context";
-import { SkillButton } from "./skill-button";
+import { characterSkillList, CharacterSkillList } from '../../data/character-skill-list';
+import { Helpers } from '../../helpers/helpers';
+import { CharacterContext } from '../../context/character-context';
+import { SkillButton } from './skill-button';
 
 const { Paragraph } = Typography;
 
@@ -16,10 +13,10 @@ export const CharacterSkills: FC = () => {
   const { characterSkillPoints, spentCharacterSkillPoints } = characterState;
 
   const characterSkillLists: Array<CharacterSkillList> = [
-    "weaponSkills",
-    "armourSkills",
-    "knowledgeSkills",
-    "powerSkills",
+    'weaponSkills',
+    'armourSkills',
+    'knowledgeSkills',
+    'powerSkills',
   ];
 
   return (
@@ -31,10 +28,7 @@ export const CharacterSkills: FC = () => {
 
       <Collapse>
         {characterSkillLists.map((skillList) => (
-          <Collapse.Panel
-            header={Helpers.camelToReadable(skillList)}
-            key={skillList}
-          >
+          <Collapse.Panel header={Helpers.camelToReadable(skillList)} key={skillList}>
             {characterSkillList[skillList].map((skill) => (
               <SkillButton key={skill.id} skill={skill} />
             ))}

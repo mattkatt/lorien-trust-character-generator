@@ -1,10 +1,7 @@
-import { createContext, FC, useState } from "react";
-import { ICharacterState } from "../interfaces/character-state";
-import {
-  ICharacterContext,
-  ICharacterProvider,
-} from "../interfaces/character-context";
-import { ICharacterSkill, IOccupationalSkill } from "../interfaces/skills";
+import { createContext, FC, useState } from 'react';
+import { ICharacterState } from '../interfaces/character-state';
+import { ICharacterContext, ICharacterProvider } from '../interfaces/character-context';
+import { ICharacterSkill, IOccupationalSkill } from '../interfaces/skills';
 
 export const defaultCharacterState: ICharacterState = {
   characterSkillPoints: 16,
@@ -35,14 +32,9 @@ const defaultCharacterContext: ICharacterContext = {
   setActiveSkills: () => {},
 };
 
-export const CharacterContext = createContext<ICharacterContext>(
-  defaultCharacterContext
-);
+export const CharacterContext = createContext<ICharacterContext>(defaultCharacterContext);
 
-export const CharacterProvider: FC<ICharacterProvider> = ({
-  character,
-  children,
-}) => {
+export const CharacterProvider: FC<ICharacterProvider> = ({ character, children }) => {
   const [state, setState] = useState(character || defaultCharacterState);
 
   const characterState = state;
@@ -66,9 +58,7 @@ export const CharacterProvider: FC<ICharacterProvider> = ({
   };
 
   const removeCharacterSkill = (skill: ICharacterSkill) => {
-    const skills = state.characterSkills.filter(
-      (characterSkill) => characterSkill.id !== skill.id
-    );
+    const skills = state.characterSkills.filter((characterSkill) => characterSkill.id !== skill.id);
     setState({ ...state, characterSkills: skills });
   };
 

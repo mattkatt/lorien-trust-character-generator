@@ -1,16 +1,13 @@
-import { ICharacterSkill } from "../interfaces/skills";
-import { characterSkills } from "./skills";
+import { ICharacterSkill } from '../interfaces/skills';
+import { characterSkills } from './skills';
 
 export type CharacterSkillList =
-  | "weaponSkills"
-  | "armourSkills"
-  | "knowledgeSkills"
-  | "powerSkills";
+  | 'weaponSkills'
+  | 'armourSkills'
+  | 'knowledgeSkills'
+  | 'powerSkills';
 
-export const characterSkillList: Record<
-  CharacterSkillList,
-  Array<ICharacterSkill>
-> = {
+export const characterSkillList: Record<CharacterSkillList, Array<ICharacterSkill>> = {
   weaponSkills: [
     characterSkills.ambidexterity,
     characterSkills.largeWeaponUse,

@@ -21,12 +21,18 @@
   "devDependencies": {
     "prettier": "^2.5.1"
   },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "tabWidth": 2
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "npx prettier --write . --config .prettier.json"
+    "prettier": "npx prettier --write ."
   },
   "eslintConfig": {
     "extends": [

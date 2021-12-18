@@ -74,7 +74,7 @@ export const CharacterProvider: FC<ICharacterProvider> = ({ character, children 
 
   const removeOccupationalSkill = (skill: IOccupationalSkill) => {
     const skills = state.occupationalSkills.filter(
-      (occupationalSkill) => occupationalSkill.id !== skill.id
+      (occupationalSkill) => occupationalSkill.id !== skill.id,
     );
     setState({ ...state, occupationalSkills: skills });
   };

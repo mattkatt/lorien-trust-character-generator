@@ -4,19 +4,12 @@ import { ICharacterContext } from '../interfaces/character-context';
 import { ICharacterSkill, IOccupationalSkill } from '../interfaces/skills';
 
 export const defaultCharacterState: ICharacterState = {
-  characterSkillPoints: 16,
   characterOSPs: 0,
   characterSkills: [],
   occupationalSkills: [],
   activeSkills: 0,
-  get spentCharacterSkillPoints() {
-    return this.characterSkills.reduce((prev, next) => {
-      return prev + next.cost;
-    }, 0);
-  },
-  get unspentCharacterSkillPoints() {
-    return this.characterSkillPoints - this.spentCharacterSkillPoints;
-  },
+  spentCharacterSkillPoints: 0,
+  unspentCharacterSkillPoints: 16,
 };
 
 const defaultCharacterContext: ICharacterContext = {
@@ -37,16 +30,9 @@ export const CharacterProvider: FC = ({ children }) => {
 
     if (storedCharacter) {
       const savedState = JSON.parse(storedCharacter) as ICharacterState;
-      setState({
-        ...defaultCharacterState,
-        characterOSPs: savedState.characterOSPs,
-        characterSkills: savedState.characterSkills,
-        occupationalSkills: savedState.occupationalSkills,
-        activeSkills: savedState.activeSkills
-      });
+      setState(savedState);
     }
   }, [setState]);
-
 
   const setCharacterState = (newState: ICharacterState) => {
     setState(newState);
@@ -54,27 +40,37 @@ export const CharacterProvider: FC = ({ children }) => {
   };
 
   const addCharacterSkill = (skill: ICharacterSkill) => {
-    const skills = [...state.characterSkills];
-    skills.push(skill);
-    setCharacterState({ ...state, characterSkills: skills });
+    const stateCopy = {...state};
+    stateCopy.characterSkills.push(skill);
+    stateCopy.spentCharacterSkillPoints += skill.cost;
+    stateCopy.unspentCharacterSkillPoints -= skill.cost;
+    setCharacterState(stateCopy);
   };
 
   const removeCharacterSkill = (skill: ICharacterSkill) => {
-    const skills = state.characterSkills.filter((characterSkill) => characterSkill.id !== skill.id);
-    setCharacterState({ ...state, characterSkills: skills });
+    const stateCopy = {...state};
+    stateCopy.characterSkills =  state.characterSkills.filter((characterSkill) => {
+      return characterSkill.id !== skill.id
+    });
+    stateCopy.spentCharacterSkillPoints -= skill.cost;
+    stateCopy.unspentCharacterSkillPoints += skill.cost;
+    setCharacterState(stateCopy);
   };
 
   const addOccupationalSkill = (skill: IOccupationalSkill) => {
-    const skills = [...state.occupationalSkills];
-    skills.push(skill);
-    setCharacterState({ ...state, occupationalSkills: skills });
+    const stateCopy = {...state};
+    stateCopy.occupationalSkills.push(skill);
+    stateCopy.characterOSPs += skill.cost;
+    setCharacterState(stateCopy);
   };
 
   const removeOccupationalSkill = (skill: IOccupationalSkill) => {
-    const skills = state.occupationalSkills.filter((occupationalSkill) => {
+    const stateCopy = {...state};
+    stateCopy.occupationalSkills = state.occupationalSkills.filter((occupationalSkill) => {
       return occupationalSkill.id !== skill.id;
     });
-    setCharacterState({ ...state, occupationalSkills: skills });
+    stateCopy.characterOSPs -= skill.cost
+    setCharacterState(stateCopy);
   };
 
   return (

@@ -10,13 +10,14 @@ const { Paragraph } = Typography;
 
 export const CharacterSkills: FC = () => {
   const { characterState } = useContext(CharacterContext);
-  const { characterSkillPoints, spentCharacterSkillPoints } = characterState;
+
+  const totalSkillPoints = characterState.spentCharacterSkillPoints + characterState.unspentCharacterSkillPoints;
 
   return (
     <>
       <h2>Character Skills</h2>
       <Paragraph>
-        Skill Point Spend: {spentCharacterSkillPoints} / {characterSkillPoints}
+        Skill Point Spend: {characterState.spentCharacterSkillPoints} / {totalSkillPoints}
       </Paragraph>
 
       <Collapse>

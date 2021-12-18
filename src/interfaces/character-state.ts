@@ -1,7 +1,6 @@
 import { ICharacterSkill, IOccupationalSkill } from './skills';
 
 export interface ICharacterState {
-  characterSkillPoints: number;
   spentCharacterSkillPoints: number;
   unspentCharacterSkillPoints: number;
   characterOSPs: number;

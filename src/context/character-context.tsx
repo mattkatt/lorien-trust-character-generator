@@ -1,6 +1,6 @@
-import { createContext, FC, useState } from 'react';
+import { createContext, FC, useEffect, useState } from 'react';
 import { ICharacterState } from '../interfaces/character-state';
-import { ICharacterContext, ICharacterProvider } from '../interfaces/character-context';
+import { ICharacterContext } from '../interfaces/character-context';
 import { ICharacterSkill, IOccupationalSkill } from '../interfaces/skills';
 
 export const defaultCharacterState: ICharacterState = {
@@ -21,86 +21,73 @@ export const defaultCharacterState: ICharacterState = {
 
 const defaultCharacterContext: ICharacterContext = {
   characterState: defaultCharacterState,
-  setCharacterState: () => {},
-  setCharacterOSPs: () => {},
-  setCharacterSkills: () => {},
   addCharacterSkill: () => {},
   removeCharacterSkill: () => {},
-  setOccupationalSkills: () => {},
   addOccupationalSkill: () => {},
   removeOccupationalSkill: () => {},
-  setActiveSkills: () => {},
 };
 
 export const CharacterContext = createContext<ICharacterContext>(defaultCharacterContext);
 
-export const CharacterProvider: FC<ICharacterProvider> = ({ character, children }) => {
-  const [state, setState] = useState(character || defaultCharacterState);
+export const CharacterProvider: FC = ({ children }) => {
+  const [state, setState] = useState(defaultCharacterState);
 
-  const characterState = state;
+  useEffect(() => {
+    const storedCharacter = localStorage.getItem('characterState');
+
+    if (storedCharacter) {
+      const savedState = JSON.parse(storedCharacter) as ICharacterState;
+      setState({
+        ...defaultCharacterState,
+        characterOSPs: savedState.characterOSPs,
+        characterSkills: savedState.characterSkills,
+        occupationalSkills: savedState.occupationalSkills,
+        activeSkills: savedState.activeSkills
+      });
+    }
+  }, [setState]);
+
 
   const setCharacterState = (newState: ICharacterState) => {
     setState(newState);
-  };
-
-  const setCharacterOSPs = (OSPs: number) => {
-    setState({ ...state, characterOSPs: OSPs });
-  };
-
-  const setCharacterSkills = (skills: Array<ICharacterSkill>) => {
-    setState({ ...state, characterSkills: skills });
+    localStorage.setItem('characterState', JSON.stringify(newState));
   };
 
   const addCharacterSkill = (skill: ICharacterSkill) => {
     const skills = [...state.characterSkills];
     skills.push(skill);
-    setState({ ...state, characterSkills: skills });
+    setCharacterState({ ...state, characterSkills: skills });
   };
 
   const removeCharacterSkill = (skill: ICharacterSkill) => {
     const skills = state.characterSkills.filter((characterSkill) => characterSkill.id !== skill.id);
-    setState({ ...state, characterSkills: skills });
-  };
-
-  const setOccupationalSkills = (skills: Array<IOccupationalSkill>) => {
-    setState({ ...state, occupationalSkills: skills });
+    setCharacterState({ ...state, characterSkills: skills });
   };
 
   const addOccupationalSkill = (skill: IOccupationalSkill) => {
     const skills = [...state.occupationalSkills];
     skills.push(skill);
-    setState({ ...state, occupationalSkills: skills });
+    setCharacterState({ ...state, occupationalSkills: skills });
   };
 
   const removeOccupationalSkill = (skill: IOccupationalSkill) => {
-    const skills = state.occupationalSkills.filter(
-      (occupationalSkill) => occupationalSkill.id !== skill.id,
-    );
-    setState({ ...state, occupationalSkills: skills });
-  };
-
-  const setActiveSkills = (skills: number) => {
-    setState({ ...state, activeSkills: skills });
+    const skills = state.occupationalSkills.filter((occupationalSkill) => {
+      return occupationalSkill.id !== skill.id;
+    });
+    setCharacterState({ ...state, occupationalSkills: skills });
   };
 
   return (
     <CharacterContext.Provider
       value={{
-        characterState,
-        setCharacterState,
-        setCharacterOSPs,
-        setCharacterSkills,
+        characterState: state,
         addCharacterSkill,
         removeCharacterSkill,
-        setOccupationalSkills,
         addOccupationalSkill,
         removeOccupationalSkill,
-        setActiveSkills,
       }}
     >
       {children}
     </CharacterContext.Provider>
   );
 };
-
-export const CharacterConsumer = CharacterContext.Consumer;

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Layout } from 'antd';
 
-import { CharacterProvider, defaultCharacterState } from './context/character-context';
+import { CharacterProvider } from './context/character-context';
 import { SidePanel } from './ui/side-panel/side-panel';
 import { AppFooter, AppHeader } from './ui/app';
 
@@ -13,7 +13,7 @@ const App: FC = () => {
   const { Content } = Layout;
 
   return (
-    <CharacterProvider character={defaultCharacterState}>
+    <CharacterProvider>
       <Layout style={{ minHeight: '100vh' }}>
         <SidePanel>
           <CharacterSkills />

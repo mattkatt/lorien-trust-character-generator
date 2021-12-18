@@ -11,7 +11,8 @@ const { Paragraph } = Typography;
 export const CharacterSkills: FC = () => {
   const { characterState } = useContext(CharacterContext);
 
-  const totalSkillPoints = characterState.spentCharacterSkillPoints + characterState.unspentCharacterSkillPoints;
+  const totalSkillPoints =
+    characterState.spentCharacterSkillPoints + characterState.unspentCharacterSkillPoints;
 
   return (
     <>

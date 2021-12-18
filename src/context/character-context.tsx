@@ -40,7 +40,7 @@ export const CharacterProvider: FC = ({ children }) => {
   };
 
   const addCharacterSkill = (skill: ICharacterSkill) => {
-    const stateCopy = {...state};
+    const stateCopy = { ...state };
     stateCopy.characterSkills.push(skill);
     stateCopy.spentCharacterSkillPoints += skill.cost;
     stateCopy.unspentCharacterSkillPoints -= skill.cost;
@@ -48,9 +48,9 @@ export const CharacterProvider: FC = ({ children }) => {
   };
 
   const removeCharacterSkill = (skill: ICharacterSkill) => {
-    const stateCopy = {...state};
-    stateCopy.characterSkills =  state.characterSkills.filter((characterSkill) => {
-      return characterSkill.id !== skill.id
+    const stateCopy = { ...state };
+    stateCopy.characterSkills = state.characterSkills.filter((characterSkill) => {
+      return characterSkill.id !== skill.id;
     });
     stateCopy.spentCharacterSkillPoints -= skill.cost;
     stateCopy.unspentCharacterSkillPoints += skill.cost;
@@ -58,18 +58,18 @@ export const CharacterProvider: FC = ({ children }) => {
   };
 
   const addOccupationalSkill = (skill: IOccupationalSkill) => {
-    const stateCopy = {...state};
+    const stateCopy = { ...state };
     stateCopy.occupationalSkills.push(skill);
     stateCopy.characterOSPs += skill.cost;
     setCharacterState(stateCopy);
   };
 
   const removeOccupationalSkill = (skill: IOccupationalSkill) => {
-    const stateCopy = {...state};
+    const stateCopy = { ...state };
     stateCopy.occupationalSkills = state.occupationalSkills.filter((occupationalSkill) => {
       return occupationalSkill.id !== skill.id;
     });
-    stateCopy.characterOSPs -= skill.cost
+    stateCopy.characterOSPs -= skill.cost;
     setCharacterState(stateCopy);
   };
 

@@ -18,15 +18,11 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
     removeOccupationalSkill,
   } = useContext(CharacterContext);
   const skillType = Helpers.isOccupationalSkill(skill) ? 'occupational' : 'character';
-  const usedSkillList = Helpers.isCharacterSkill(skill)
-    ? characterState.characterSkills
-    : characterState.occupationalSkills;
+  const usedSkillList = [...characterState.characterSkills, ...characterState.occupationalSkills];
 
-  const isSelected = (): boolean => {
-    return usedSkillList.some((s) => s.id === skill.id);
-  };
+  const isSelected = () => usedSkillList.some((s) => s.id === skill.id);
 
-  const isDisabled = (): boolean => {
+  const isDisabled = () => {
     const isRestricted = usedSkillList.some((s) => s.restrictedSkills?.includes(skill.id));
 
     const enoughSkillPoints = Helpers.isCharacterSkill(skill)
@@ -34,7 +30,13 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
       : true;
 
     const meetsPrerequisites = skill?.prerequisites
-      ? skill.prerequisites.some((prerequisite) => {
+      ? skill.prerequisites.every((prerequisite) => {
+          if (prerequisite.includes('||')) {
+            return prerequisite.split('||').some((orPrerequisite) => {
+              return usedSkillList.some((usedSkill) => usedSkill.id === orPrerequisite);
+            });
+          }
+
           return usedSkillList.some((s) => s.id === prerequisite);
         })
       : true;

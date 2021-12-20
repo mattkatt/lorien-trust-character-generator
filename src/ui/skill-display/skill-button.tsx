@@ -44,6 +44,8 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
     return isRestricted || !enoughSkillPoints || !meetsPrerequisites;
   };
 
+  const isRestricted = (skill as IOccupationalSkill)?.restrictedPurchase;
+
   const onSkillClick = () => {
     if (isSelected()) {
       skillType === 'character'
@@ -65,6 +67,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
         onClick={onSkillClick}
       >
         {`${skill.name} - {${skill.cost}}`}
+        {isRestricted ? ' @' : null}
       </Button>
     </Popover>
   );

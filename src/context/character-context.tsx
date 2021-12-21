@@ -3,6 +3,8 @@ import { ICharacterState } from '../interfaces/character-state';
 import { ICharacterContext } from '../interfaces/character-context';
 import { ICharacterSkill, IOccupationalSkill } from '../interfaces/skills';
 
+const CHARACTER_STATE = 'characterState';
+
 export const defaultCharacterState: ICharacterState = {
   characterOSPs: 0,
   characterSkills: [],
@@ -26,7 +28,7 @@ export const CharacterProvider: FC = ({ children }) => {
   const [state, setState] = useState(defaultCharacterState);
 
   useEffect(() => {
-    const storedCharacter = localStorage.getItem('characterState');
+    const storedCharacter = localStorage.getItem(CHARACTER_STATE);
 
     if (storedCharacter) {
       const savedState = JSON.parse(storedCharacter) as ICharacterState;
@@ -36,7 +38,7 @@ export const CharacterProvider: FC = ({ children }) => {
 
   const setCharacterState = (newState: ICharacterState) => {
     setState(newState);
-    localStorage.setItem('characterState', JSON.stringify(newState));
+    localStorage.setItem(CHARACTER_STATE, JSON.stringify(newState));
   };
 
   const addCharacterSkill = (skill: ICharacterSkill) => {

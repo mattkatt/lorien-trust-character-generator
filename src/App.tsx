@@ -8,31 +8,36 @@ import { AppFooter, AppHeader } from './ui/app';
 import './App.css';
 import { OccupationalSkill } from './ui/skill-display/occupational-skill';
 import { CharacterSkills } from './ui/skill-display/character-skills';
+import { AppProvider } from './context/app-context';
+import { AppSettings } from './ui/app/app-settings';
 
 const App: FC = () => {
   const { Content } = Layout;
 
   return (
-    <CharacterProvider>
-      <Layout style={{ minHeight: '100vh' }}>
-        <SidePanel>
-          <CharacterSkills />
-        </SidePanel>
+    <AppProvider>
+      <CharacterProvider>
+        <Layout style={{ minHeight: '100vh' }}>
+          <SidePanel>
+            <CharacterSkills />
+            <AppSettings />
+          </SidePanel>
 
-        <Layout>
-          <Content>
-            <AppHeader />
-            <OccupationalSkill />
-          </Content>
-          <AppFooter>
-            <span>
-              Creative Content &copy; <a href='https://lorientrust.com/'>Lorien Trust</a> | App by{' '}
-              <a href='https://github.com/mattkatt'>Matt Evans</a>
-            </span>
-          </AppFooter>
+          <Layout>
+            <Content>
+              <AppHeader />
+              <OccupationalSkill />
+            </Content>
+            <AppFooter>
+              <span>
+                Creative Content &copy; <a href='https://lorientrust.com/'>Lorien Trust</a> | App by{' '}
+                <a href='https://github.com/mattkatt'>Matt Evans</a>
+              </span>
+            </AppFooter>
+          </Layout>
         </Layout>
-      </Layout>
-    </CharacterProvider>
+      </CharacterProvider>
+    </AppProvider>
   );
 };
 

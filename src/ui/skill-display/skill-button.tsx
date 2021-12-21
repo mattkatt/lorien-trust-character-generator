@@ -4,12 +4,14 @@ import { Button, Popover } from 'antd';
 import { SkillPopover } from './skill-popover';
 import { CharacterContext } from '../../context/character-context';
 import { Helpers } from '../../helpers/helpers';
+import { AppContext } from '../../context/app-context';
 
 interface ISkillButtonProps {
   skill: ISkill;
 }
 
 export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
+  const { appState } = useContext(AppContext);
   const {
     characterState,
     addCharacterSkill,
@@ -58,7 +60,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
     }
   };
 
-  return (
+  return appState.hideDisabledSkills && isDisabled() && !isSelected() ? null : (
     <Popover content={<SkillPopover skill={skill} />} title={skill.name} placement={'rightBottom'}>
       <Button
         block

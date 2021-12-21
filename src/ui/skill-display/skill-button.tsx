@@ -44,7 +44,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
     return isRestricted || !enoughSkillPoints || !meetsPrerequisites;
   };
 
-  const isRestricted = (skill as IOccupationalSkill)?.restrictedPurchase;
+  const isRestricted = (skill as IOccupationalSkill)?.restrictedPurchase ?? false;
 
   const onSkillClick = () => {
     if (isSelected()) {

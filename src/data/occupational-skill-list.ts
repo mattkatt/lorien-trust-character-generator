@@ -1,7 +1,6 @@
-import { IOccupationalSkill } from '../interfaces/skills';
 import { occupationalSkills } from './skills';
 
-export const occupationalSkillList: Record<string, Array<IOccupationalSkill>> = {
+export const occupationalSkillList = {
   alchemistsGuild: [
     occupationalSkills.createPoisonNovice,
     occupationalSkills.createPoisonArtisan,
@@ -22,7 +21,24 @@ export const occupationalSkillList: Record<string, Array<IOccupationalSkill>> = 
     occupationalSkills.forensicAnalysis,
     occupationalSkills.immuneToLethalAlchemicalVenoms,
   ],
-  armourersGuild: [],
+  armourersGuild: [
+    occupationalSkills.armoursmithApprentice,
+    occupationalSkills.repairEnchantedItems,
+    occupationalSkills.armoursmithArtisan,
+    occupationalSkills.armoursmithMaster,
+    occupationalSkills.weaponsmithApprentice,
+    occupationalSkills.repairDestroyedItems,
+    occupationalSkills.weaponsmithArtisan,
+    occupationalSkills.weaponsmithMaster,
+    occupationalSkills.immuneToRepel,
+    occupationalSkills.immuneToRepelAndStrikedown,
+    occupationalSkills.mightyBlow,
+    occupationalSkills.crushingBlow,
+    occupationalSkills.additionalReforging,
+    occupationalSkills.spellTempering,
+    occupationalSkills.shieldMastery,
+    occupationalSkills.shieldMasteryExpert,
+  ],
   bardsGuild: [],
   casinoGuild: [],
   corruptorsGuild: [],

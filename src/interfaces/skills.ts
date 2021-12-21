@@ -14,6 +14,6 @@ export interface ICharacterSkill extends ISkill {
 export interface IOccupationalSkill extends ISkill {
   tier: 1 | 2 | 3 | 4 | 5;
   cost: 10 | 20 | 30 | 40 | 50;
-  restrictedPurchase: boolean;
+  restrictedPurchase?: boolean;
   replaces?: IOccupationalSkill['id'];
 }

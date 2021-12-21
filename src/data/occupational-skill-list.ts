@@ -1,6 +1,7 @@
 import { occupationalSkills } from './skills';
+import { IOccupationalSkill } from '../interfaces/skills';
 
-export const occupationalSkillList = {
+export const occupationalSkillList: Record<string, Array<IOccupationalSkill>> = {
   alchemistsGuild: [
     occupationalSkills.createPoisonNovice,
     occupationalSkills.createPoisonArtisan,

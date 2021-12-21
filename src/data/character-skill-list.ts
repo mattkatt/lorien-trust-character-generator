@@ -1,6 +1,7 @@
 import { characterSkills } from './skills';
+import { ICharacterSkill } from '../interfaces/skills';
 
-export const characterSkillList = {
+export const characterSkillList: Record<string, Array<ICharacterSkill>> = {
   weaponSkills: [
     characterSkills.ambidexterity,
     characterSkills.largeWeaponUse,

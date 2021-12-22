@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { ICharacterSkill, IOccupationalSkill, ISkill } from '../../interfaces/skills';
 import { Button, Popover } from 'antd';
-import { SkillPopover } from './skill-popover';
+import { SkillDescription } from './skill-description';
 import { CharacterContext } from '../../context/character-context';
 import { Helpers } from '../../helpers/helpers';
 import { AppContext } from '../../context/app-context';
@@ -61,7 +61,11 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
   };
 
   return appState.hideDisabledSkills && isDisabled() && !isSelected() ? null : (
-    <Popover content={<SkillPopover skill={skill} />} title={skill.name} placement={'rightBottom'}>
+    <Popover
+      content={<SkillDescription skill={skill} />}
+      title={skill.name}
+      placement={'rightBottom'}
+    >
       <Button
         block
         type={isSelected() ? 'primary' : 'dashed'}

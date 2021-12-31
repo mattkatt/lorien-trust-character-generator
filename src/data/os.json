@@ -1,0 +1,239 @@
+{
+  "createPoisonNovice": {
+    "name": "Create Poison (Novice)",
+    "cost": 20,
+    "description": "",
+    "tier": 2,
+    "prerequisites": ["poisonLore"]
+  },
+  "createPoisonArtisan": {
+    "name": "Create Poison (Artisan)",
+    "cost": 30,
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["poisonLore", "createPoisonNovice"],
+    "replaces": "createPoisonNovice"
+  },
+  "createPoisonMaster": {
+    "name": "Create Poison (Master)",
+    "cost": 40,
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["poisonLore", "createPoisonArtisan"],
+    "replaces": "createPoisonArtisan"
+  },
+  "createPoisonMagical": {
+    "name": "Create Poison (Magical)",
+    "cost": 50,
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["poisonLore", "createPoisonMaster"],
+    "replaces": "createPoisonMaster"
+  },
+  "createPotionNovice": {
+    "name": "Create Potion (Novice)",
+    "cost": 20,
+    "description": "",
+    "tier": 2,
+    "prerequisites": ["potionLore"]
+  },
+  "createPotionArtisan": {
+    "name": "Create Potion (Artisan)",
+    "cost": 30,
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["potionLore", "createPotionNovice"],
+    "replaces": "createPotionNovice"
+  },
+  "createPotionMaster": {
+    "name": "Create Potion (Master)",
+    "cost": 40,
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["potionLore", "createPotionArtisan"],
+    "replaces": "createPotionArtisan"
+  },
+  "createPotionMagical": {
+    "name": "Create Potion (Magical)",
+    "cost": 50,
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["potionLore", "createPotionMaster"],
+    "replaces": "createPotionMaster"
+  },
+  "createReagents": {
+    "cost": 10,
+    "description": "",
+    "tier": 1,
+    "prerequisites": ["poisonLore||potionLore"]
+  },
+  "createReagentsImproved": {
+    "name": "Create Reagents (Improved)",
+    "cost": 20,
+    "description": "",
+    "tier": 2,
+    "prerequisites": ["createReagents"],
+    "replaces": "createReagents"
+  },
+  "increasedAlchemicalProduction": {
+    "cost": 40,
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["createReagentsImproved"],
+    "replaces": "createReagentsImproved"
+  },
+  "createAntidotes": {
+    "cost": 10,
+    "description": "",
+    "tier": 1,
+    "prerequisites": ["poisonLore||potionLore"]
+  },
+  "createAntidotesImproved": {
+    "name": "Create Antidotes (Improved)",
+    "cost": 30,
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["createAntidotes"],
+    "replaces": "createAntidotes"
+  },
+  "herbLore": {
+    "cost": 10,
+    "description": "",
+    "tier": 1
+  },
+  "oiledWeapons": {
+    "cost": 30,
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["immuneToFumble"]
+  },
+  "masterPoisoner": {
+    "cost": 40,
+    "description": "",
+    "tier": 4
+  },
+  "forensicAnalysis": {
+    "cost": 30,
+    "description": "",
+    "tier": 3
+  },
+  "immuneToLethalAlchemicalVenoms": {
+    "cost": 40,
+    "description": "",
+    "tier": 4
+  },
+  "armoursmithApprentice": {
+    "name": "Armoursmith (Apprentice)",
+    "cost": 10,
+    "description": "",
+    "tier": 1
+  },
+  "repairEnchantedItems": {
+    "cost": 20,
+    "description": "",
+    "tier": 2,
+    "prerequisites": ["armoursmithApprentice"],
+    "replaces": "armoursmithApprentice"
+  },
+  "armoursmithArtisan": {
+    "name": "Armoursmith (Artisan)",
+    "cost": 40,
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["repairEnchantedItems"],
+    "replaces": "repairEnchantedItems"
+  },
+  "armoursmithMaster": {
+    "name": "Armoursmith (Master)",
+    "cost": 50,
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["armoursmithArtisan"],
+    "replaces": "armoursmithArtisan"
+  },
+  "weaponsmithApprentice": {
+    "name": "Weaponsmith (Apprentice)",
+    "cost": 10,
+    "description": "",
+    "tier": 1
+  },
+  "repairDestroyedItems": {
+    "cost": 20,
+    "description": "",
+    "tier": 2,
+    "prerequisites": ["weaponsmithApprentice"],
+    "replaces": "weaponsmithApprentice"
+  },
+  "weaponsmithArtisan": {
+    "name": "Weaponsmith (Artisan)",
+    "cost": 40,
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["repairDestroyedItems"],
+    "replaces": "repairDestroyedItems"
+  },
+  "weaponsmithMaster": {
+    "name": "Weaponsmith (Master)",
+    "cost": 50,
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["weaponsmithArtisan"],
+    "replaces": "weaponsmithArtisan"
+  },
+  "immuneToRepel": {
+    "cost": 20,
+    "description": "",
+    "tier": 2
+  },
+  "immuneToRepelAndStrikedown": {
+    "cost": 30,
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["immuneToRepel"],
+    "replaces": "immuneToRepel"
+  },
+  "mightyBlow": {
+    "cost": 40,
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["immuneToRepelAndStrikedown"],
+    "replaces": "immuneToRepelAndStrikedown"
+  },
+  "crushingBlow": {
+    "cost": 50,
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["mightyBlow"],
+    "replaces": "mightyBlow"
+  },
+  "additionalReforging": {
+    "cost": 10,
+    "description": "",
+    "tier": 1
+  },
+  "spellTempering": {
+    "cost": 30,
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["additionalReforging"],
+    "replaces": "additionalReforging"
+  },
+  "shieldMastery": {
+    "cost": 30,
+    "description": "",
+    "tier": 3
+  },
+  "shieldMasteryExpert": {
+    "name": "Shield Mastery (Expert)",
+    "cost": 30,
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["shieldMastery"],
+    "replaces": "shieldMastery"
+  }
+}

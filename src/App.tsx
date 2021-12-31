@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 import { Layout } from 'antd';
 
+import { AppProvider } from './context/app-context';
 import { CharacterProvider } from './context/character-context';
+import { AppFooter } from './ui/app/app-footer';
+import { AppHeader } from './ui/app/app-header';
+import { AppSettings } from './ui/app/app-settings';
 import { SidePanel } from './ui/side-panel/side-panel';
-import { AppFooter, AppHeader } from './ui/app';
-
-import './App.css';
 import { OccupationalSkill } from './ui/skill-display/occupational-skill';
 import { CharacterSkills } from './ui/skill-display/character-skills';
-import { AppProvider } from './context/app-context';
-import { AppSettings } from './ui/app/app-settings';
+
+import './App.css';
 
 const App: FC = () => {
   const { Content } = Layout;

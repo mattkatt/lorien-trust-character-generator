@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Checkbox } from 'antd';
 import { AppContext } from '../../context/app-context';
+import { TextBox } from '../layout/text-box';
 
 export const AppSettings = () => {
   const { appState, setHideDisabledSkills } = useContext(AppContext);
@@ -11,7 +12,7 @@ export const AppSettings = () => {
   }, [appState, setHideDisabled]);
 
   return (
-    <>
+    <TextBox>
       <h2>Settings</h2>
 
       <Checkbox
@@ -20,6 +21,6 @@ export const AppSettings = () => {
       >
         Hide Disabled Skills
       </Checkbox>
-    </>
+    </TextBox>
   );
 };

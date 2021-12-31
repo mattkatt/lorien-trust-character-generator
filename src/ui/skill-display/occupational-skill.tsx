@@ -35,6 +35,7 @@ export const OccupationalSkill: FC = () => {
       }
     };
 
+    onResize();
     window.addEventListener('resize', onResize);
 
     return () => {
@@ -63,10 +64,7 @@ export const OccupationalSkill: FC = () => {
           <SelectedOccupationalSkills />
 
           {characterState.unspentCharacterSkillPoints ? (
-            <Alert
-              message='You must spend all your character skill points before you can select occupational skills'
-              type='warning'
-            />
+            <Alert message='You have unspent character skill points' type='warning' />
           ) : null}
         </Col>
       </Row>
@@ -80,7 +78,7 @@ export const OccupationalSkill: FC = () => {
       <Row style={{ margin: '15px' }} gutter={16}>
         {Object.keys(occupationalSkillList).map((skillListKey) => (
           <Col span={getColSpan(size)} key={skillListKey}>
-            <Card title={Helpers.camelToReadable(skillListKey)}>
+            <Card title={Helpers.camelToReadable(skillListKey)} style={{ marginBottom: '16px' }}>
               {occupationalSkillList[skillListKey].map((skill) => (
                 <SkillButton key={skill.id} skill={skill} />
               ))}

@@ -5,6 +5,7 @@ import { characterSkillList } from '../../data/character-skill-list';
 import { Helpers } from '../../helpers/helpers';
 import { CharacterContext } from '../../context/character-context';
 import { SkillButton } from './skill-button';
+import { TextBox } from '../layout/text-box';
 
 const { Paragraph } = Typography;
 
@@ -16,10 +17,12 @@ export const CharacterSkills: FC = () => {
 
   return (
     <>
-      <h2>Character Skills</h2>
-      <Paragraph>
-        Skill Point Spend: {characterState.spentCharacterSkillPoints} / {totalSkillPoints}
-      </Paragraph>
+      <TextBox>
+        <h2>Character Skills</h2>
+        <Paragraph>
+          Skill Point Spend: {characterState.spentCharacterSkillPoints} / {totalSkillPoints}
+        </Paragraph>
+      </TextBox>
 
       <Collapse>
         {Object.keys(characterSkillList).map((skillList) => (

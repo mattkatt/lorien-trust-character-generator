@@ -1,14 +1,12 @@
 {
   "createPoisonNovice": {
     "name": "Create Poison (Novice)",
-    "cost": 20,
     "description": "",
     "tier": 2,
     "prerequisites": ["poisonLore"]
   },
   "createPoisonArtisan": {
     "name": "Create Poison (Artisan)",
-    "cost": 30,
     "description": "",
     "tier": 3,
     "prerequisites": ["poisonLore", "createPoisonNovice"],
@@ -16,7 +14,6 @@
   },
   "createPoisonMaster": {
     "name": "Create Poison (Master)",
-    "cost": 40,
     "description": "",
     "tier": 4,
     "prerequisites": ["poisonLore", "createPoisonArtisan"],
@@ -24,7 +21,6 @@
   },
   "createPoisonMagical": {
     "name": "Create Poison (Magical)",
-    "cost": 50,
     "description": "",
     "tier": 5,
     "restrictedPurchase": true,
@@ -33,14 +29,12 @@
   },
   "createPotionNovice": {
     "name": "Create Potion (Novice)",
-    "cost": 20,
     "description": "",
     "tier": 2,
     "prerequisites": ["potionLore"]
   },
   "createPotionArtisan": {
     "name": "Create Potion (Artisan)",
-    "cost": 30,
     "description": "",
     "tier": 3,
     "prerequisites": ["potionLore", "createPotionNovice"],
@@ -48,7 +42,6 @@
   },
   "createPotionMaster": {
     "name": "Create Potion (Master)",
-    "cost": 40,
     "description": "",
     "tier": 4,
     "prerequisites": ["potionLore", "createPotionArtisan"],
@@ -56,7 +49,6 @@
   },
   "createPotionMagical": {
     "name": "Create Potion (Magical)",
-    "cost": 50,
     "description": "",
     "tier": 5,
     "restrictedPurchase": true,
@@ -64,74 +56,62 @@
     "replaces": "createPotionMaster"
   },
   "createReagents": {
-    "cost": 10,
     "description": "",
     "tier": 1,
     "prerequisites": ["poisonLore||potionLore"]
   },
   "createReagentsImproved": {
     "name": "Create Reagents (Improved)",
-    "cost": 20,
     "description": "",
     "tier": 2,
     "prerequisites": ["createReagents"],
     "replaces": "createReagents"
   },
   "increasedAlchemicalProduction": {
-    "cost": 40,
     "description": "",
     "tier": 4,
     "prerequisites": ["createReagentsImproved"],
     "replaces": "createReagentsImproved"
   },
   "createAntidotes": {
-    "cost": 10,
     "description": "",
     "tier": 1,
     "prerequisites": ["poisonLore||potionLore"]
   },
   "createAntidotesImproved": {
     "name": "Create Antidotes (Improved)",
-    "cost": 30,
     "description": "",
     "tier": 3,
     "prerequisites": ["createAntidotes"],
     "replaces": "createAntidotes"
   },
   "herbLore": {
-    "cost": 10,
     "description": "",
     "tier": 1
   },
   "oiledWeapons": {
-    "cost": 30,
     "description": "",
     "tier": 3,
     "prerequisites": ["immuneToFumble"]
   },
   "masterPoisoner": {
-    "cost": 40,
     "description": "",
     "tier": 4
   },
   "forensicAnalysis": {
-    "cost": 30,
     "description": "",
     "tier": 3
   },
   "immuneToLethalAlchemicalVenoms": {
-    "cost": 40,
     "description": "",
     "tier": 4
   },
   "armoursmithApprentice": {
     "name": "Armoursmith (Apprentice)",
-    "cost": 10,
     "description": "",
     "tier": 1
   },
   "repairEnchantedItems": {
-    "cost": 20,
     "description": "",
     "tier": 2,
     "prerequisites": ["armoursmithApprentice"],
@@ -139,7 +119,6 @@
   },
   "armoursmithArtisan": {
     "name": "Armoursmith (Artisan)",
-    "cost": 40,
     "description": "",
     "tier": 4,
     "prerequisites": ["repairEnchantedItems"],
@@ -147,7 +126,6 @@
   },
   "armoursmithMaster": {
     "name": "Armoursmith (Master)",
-    "cost": 50,
     "description": "",
     "tier": 5,
     "restrictedPurchase": true,
@@ -156,12 +134,10 @@
   },
   "weaponsmithApprentice": {
     "name": "Weaponsmith (Apprentice)",
-    "cost": 10,
     "description": "",
     "tier": 1
   },
   "repairDestroyedItems": {
-    "cost": 20,
     "description": "",
     "tier": 2,
     "prerequisites": ["weaponsmithApprentice"],
@@ -169,7 +145,6 @@
   },
   "weaponsmithArtisan": {
     "name": "Weaponsmith (Artisan)",
-    "cost": 40,
     "description": "",
     "tier": 4,
     "prerequisites": ["repairDestroyedItems"],
@@ -177,7 +152,6 @@
   },
   "weaponsmithMaster": {
     "name": "Weaponsmith (Master)",
-    "cost": 50,
     "description": "",
     "tier": 5,
     "restrictedPurchase": true,
@@ -185,26 +159,22 @@
     "replaces": "weaponsmithArtisan"
   },
   "immuneToRepel": {
-    "cost": 20,
     "description": "",
     "tier": 2
   },
   "immuneToRepelAndStrikedown": {
-    "cost": 30,
     "description": "",
     "tier": 3,
     "prerequisites": ["immuneToRepel"],
     "replaces": "immuneToRepel"
   },
   "mightyBlow": {
-    "cost": 40,
     "description": "",
     "tier": 4,
     "prerequisites": ["immuneToRepelAndStrikedown"],
     "replaces": "immuneToRepelAndStrikedown"
   },
   "crushingBlow": {
-    "cost": 50,
     "description": "",
     "tier": 5,
     "restrictedPurchase": true,
@@ -212,28 +182,139 @@
     "replaces": "mightyBlow"
   },
   "additionalReforging": {
-    "cost": 10,
     "description": "",
     "tier": 1
   },
   "spellTempering": {
-    "cost": 30,
     "description": "",
     "tier": 3,
     "prerequisites": ["additionalReforging"],
     "replaces": "additionalReforging"
   },
   "shieldMastery": {
-    "cost": 30,
     "description": "",
     "tier": 3
   },
   "shieldMasteryExpert": {
     "name": "Shield Mastery (Expert)",
-    "cost": 30,
     "description": "",
     "tier": 3,
     "prerequisites": ["shieldMastery"],
     "replaces": "shieldMastery"
+  },
+  "detectAndRemoveBeguile": {
+    "description": "",
+    "tier": 2
+  },
+  "immuneToCharms": {
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["detectAndRemoveBeguile"]
+  },
+  "castMassCharms": {
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["immuneToCharms"],
+    "replaces": "immuneToCharms"
+  },
+  "beguile": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["castMassCharms", "detectAndRemoveBeguile"],
+    "replaces": "detectAndRemoveBeguile"
+  },
+  "immuneToFear": {
+    "description": "",
+    "tier": 1
+  },
+  "immuneToMute": {
+    "description": "",
+    "tier": 2,
+    "prerequisites": ["immuneToFear"]
+  },
+  "rally": {
+    "description": "",
+    "tier": 4,
+    "restrictedPurchase": true,
+    "prerequisites": ["immuneToMute", "immuneToFear"],
+    "replaces": "immuneToFear"
+  },
+  "immuneToMindEffects": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["rally"]
+  },
+  "sleeplessChanting": {
+    "description": "",
+    "tier": 2
+  },
+  "unendingVoice": {
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["sleeplessChanting"],
+    "replaces": "sleeplessChanting"
+  },
+  "translateNamedScriptX": {
+    "name": "Translate Named Script <X>",
+    "description": "",
+    "tier": 1
+  },
+  "writtenForgery": {
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["translateNamedScriptX", "recogniseForgery"]
+  },
+  "forgery": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["writtenForgery", "recogniseForgery"],
+    "replaces": "writtenForgery"
+  },
+  "scriptMasterX": {
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["translateNamedScriptX"],
+    "replaces": "translateNamedScriptX"
+  },
+  "polyglot": {
+    "cost": 70,
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["scriptMasterX"],
+    "replaces": "scriptMasterX"
+  },
+  "immuneToBefriendAndConfusion": {
+    "description": "",
+    "tier": 3
+  },
+  "locate": {
+    "description": "",
+    "tier": 2
+  },
+  "concealItem": {
+    "description": "",
+    "tier": 2
+  },
+  "concealItemImproved": {
+    "name": "Conceal Item (Improved)",
+    "description": "",
+    "tier": 3,
+    "prerequisites": ["concealItem"],
+    "replaces": "concealItem"
+  },
+  "performTransportRite": {
+    "description": "",
+    "tier": 1
+  },
+  "performTeleportRite": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["performTransportRite"],
+    "replaces": "performTransportRite"
   }
 }

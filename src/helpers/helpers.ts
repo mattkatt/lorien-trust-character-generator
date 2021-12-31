@@ -9,8 +9,8 @@ export class Helpers {
   };
 
   static isOccupationalSkill = (skill: ISkill): skill is IOccupationalSkill =>
-    (skill as IOccupationalSkill).cost >= 10;
+    !!(skill as IOccupationalSkill).tier;
 
   static isCharacterSkill = (skill: ISkill): skill is ICharacterSkill =>
-    (skill as ICharacterSkill).cost < 10;
+    !Helpers.isOccupationalSkill(skill);
 }

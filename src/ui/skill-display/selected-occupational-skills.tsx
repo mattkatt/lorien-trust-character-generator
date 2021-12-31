@@ -9,7 +9,7 @@ export const SelectedOccupationalSkills: FC = () => {
   const skillsToDisplay = occupationalSkills.map((skill) => {
     const isOverwritten = occupationalSkills.some((s) => s.replaces === skill.id);
 
-    return !isOverwritten ? <li>{skill.name}</li> : null;
+    return !isOverwritten ? <li key={skill.id}>{skill.name}</li> : null;
   });
 
   return (

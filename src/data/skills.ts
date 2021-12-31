@@ -7,7 +7,7 @@ import { Helpers } from '../helpers/helpers';
 function skillFactory(data: {
   [key: string]: any;
 }): Record<string, ICharacterSkill | IOccupationalSkill> {
-  const returnedSkills = {};
+  const returnedSkills: Record<string, ICharacterSkill | IOccupationalSkill> = {};
 
   for (let skillId in data) {
     let skillData = data[skillId];

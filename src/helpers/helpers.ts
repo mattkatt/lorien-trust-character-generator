@@ -1,4 +1,4 @@
-import { ICharacterSkill, IOccupationalSkill, ISkill } from '../interfaces/skills';
+import { ICharacterSkill, IOccupationalSkill, ISkill } from '../data/skills';
 
 export class Helpers {
   static capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);

@@ -1,7 +1,22 @@
 import { createContext, FC, useEffect, useState } from 'react';
-import { ICharacterState } from '../interfaces/character-state';
-import { ICharacterContext } from '../interfaces/character-context';
-import { ICharacterSkill, IOccupationalSkill } from '../interfaces/skills';
+import { ICharacterSkill, IOccupationalSkill } from '../data/skills';
+
+interface ICharacterState {
+  spentCharacterSkillPoints: number;
+  unspentCharacterSkillPoints: number;
+  characterOSPs: number;
+  characterSkills: Array<ICharacterSkill>;
+  occupationalSkills: Array<IOccupationalSkill>;
+  activeSkills: number;
+}
+
+interface ICharacterContext {
+  characterState: ICharacterState;
+  addCharacterSkill: (skill: ICharacterSkill) => void;
+  removeCharacterSkill: (skill: ICharacterSkill) => void;
+  addOccupationalSkill: (skill: IOccupationalSkill) => void;
+  removeOccupationalSkill: (skill: IOccupationalSkill) => void;
+}
 
 const CHARACTER_STATE = 'characterState';
 

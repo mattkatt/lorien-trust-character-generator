@@ -1,6 +1,13 @@
 import { createContext, FC, useEffect, useState } from 'react';
-import { IAppState } from '../interfaces/app-state';
-import { IAppContext } from '../interfaces/app-context';
+
+interface IAppState {
+  hideDisabledSkills: boolean;
+}
+
+interface IAppContext {
+  appState: IAppState;
+  setHideDisabledSkills: (bool: boolean) => void;
+}
 
 const APP_STATE = 'appState';
 

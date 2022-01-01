@@ -1,5 +1,5 @@
 import { occupationalSkills as os } from './skills';
-import { IOccupationalSkill } from '../interfaces/skills';
+import { IOccupationalSkill } from './skills';
 
 export const occupationalSkillList: Record<string, Array<IOccupationalSkill>> = {
   alchemistsGuild: [

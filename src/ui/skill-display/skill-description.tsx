@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ISkill } from '../../interfaces/skills';
+import { ISkill } from '../../data/skills';
 import { Helpers } from '../../helpers/helpers';
 
 interface ISkillPopoverDescription {

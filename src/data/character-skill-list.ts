@@ -1,5 +1,5 @@
 import { characterSkills as cs } from './skills';
-import { ICharacterSkill } from '../interfaces/skills';
+import { ICharacterSkill } from './skills';
 
 export const characterSkillList: Record<string, Array<ICharacterSkill>> = {
   weaponSkills: [

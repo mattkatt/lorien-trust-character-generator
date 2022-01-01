@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { ICharacterSkill, IOccupationalSkill, ISkill } from '../../interfaces/skills';
+import { ICharacterSkill, IOccupationalSkill, ISkill } from '../../data/skills';
 import { Button, Popover } from 'antd';
 import { SkillDescription } from './skill-description';
 import { CharacterContext } from '../../context/character-context';

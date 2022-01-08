@@ -12,15 +12,6 @@
   flex: 0 auto;
 }
 
-.sider-space {
-  width: 100%;
-  height: 100%;
-}
-
-.sider-space .ant-space-item:first-child {
-  flex-grow: 1;
-}
-
-.printable {
-  background: #fff !important;
+.ant-card.collapsed .ant-card-body {
+  display: none;
 }

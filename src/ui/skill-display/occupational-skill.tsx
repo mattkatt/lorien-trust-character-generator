@@ -1,11 +1,10 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { Alert, Card, Col, Row } from 'antd';
+import { Alert, Col, Row } from 'antd';
 
 import { CharacterContext } from '../../context/character-context';
 import { occupationalSkillList } from '../../data/occupational-skill-list';
-import { Helpers } from '../../helpers/helpers';
-import { SkillButton } from './skill-button';
 import { SelectedOccupationalSkills } from './selected-occupational-skills';
+import { OccupationalSkillList } from './occupational-skill-list';
 
 type breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -77,12 +76,8 @@ export const OccupationalSkill: FC = () => {
 
       <Row style={{ margin: '15px' }} gutter={16}>
         {Object.keys(occupationalSkillList).map((skillListKey) => (
-          <Col span={getColSpan(size)} key={skillListKey}>
-            <Card title={Helpers.camelToReadable(skillListKey)} style={{ marginBottom: '16px' }}>
-              {occupationalSkillList[skillListKey].map((skill) => (
-                <SkillButton key={skill.id} skill={skill} />
-              ))}
-            </Card>
+          <Col span={getColSpan(size)} key={skillListKey} style={{ marginBottom: '16px' }}>
+            <OccupationalSkillList skillListKey={skillListKey} />
           </Col>
         ))}
       </Row>

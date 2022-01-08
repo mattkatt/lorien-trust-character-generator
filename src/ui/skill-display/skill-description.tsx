@@ -26,7 +26,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
     if (Helpers.isOccupationalSkill(skill)) {
       const replaces = () => {
         if (!skill.replaces) {
-          return 'None';
+          return <i>None</i>;
         }
 
         if (Array.isArray(skill.replaces)) {
@@ -44,7 +44,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
           <br />
           <b>Prerequisites:</b> {prerequisites ?? <i>None</i>}
           <br />
-          <b>Replaces:</b> {replaces}
+          <b>Replaces:</b> {replaces()}
           <br />
         </>
       );

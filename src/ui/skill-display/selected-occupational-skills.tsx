@@ -1,6 +1,7 @@
 import React, { FC, useContext } from 'react';
-import { Alert, Typography } from 'antd';
+import { Alert, Popover, Typography } from 'antd';
 import { CharacterContext } from '../../context/character-context';
+import { SkillDescription } from './skill-description';
 
 const { Paragraph } = Typography;
 
@@ -16,7 +17,17 @@ export const SelectedOccupationalSkills: FC = () => {
       return s.replaces === skill.id;
     });
 
-    return !isOverwritten ? <li key={skill.id}>{skill.name}</li> : null;
+    return isOverwritten ? null : (
+      <li key={skill.id}>
+        <Popover
+          content={<SkillDescription skill={skill} />}
+          title={skill.name}
+          placement={'bottomLeft'}
+        >
+          {skill.name}
+        </Popover>
+      </li>
+    );
   });
 
   const ospTotal = occupationalSkills.reduce((total, skill) => total + skill.cost, 0);

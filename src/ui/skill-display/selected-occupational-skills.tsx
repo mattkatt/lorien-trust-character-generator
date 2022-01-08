@@ -9,7 +9,12 @@ export const SelectedOccupationalSkills: FC = () => {
   const { occupationalSkills } = characterState;
 
   const skillsToDisplay = occupationalSkills.map((skill) => {
-    const isOverwritten = occupationalSkills.some((s) => s.replaces === skill.id);
+    const isOverwritten = occupationalSkills.some((s) => {
+      if (Array.isArray(s.replaces)) {
+        return s.replaces.some((replaces) => replaces === skill.id);
+      }
+      return s.replaces === skill.id;
+    });
 
     return !isOverwritten ? <li key={skill.id}>{skill.name}</li> : null;
   });

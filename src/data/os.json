@@ -316,5 +316,84 @@
     "restrictedPurchase": true,
     "prerequisites": ["performTransportRite"],
     "replaces": "performTransportRite"
+  },
+  "revitaliseUnliving": {
+    "description": "",
+    "tier": 1
+  },
+  "repairUnlivingAdvanced": {
+    "name": "Repair Unliving (Advanced)",
+    "description": "",
+    "tier": 2,
+    "prerequisites": ["revitaliseUnliving"],
+    "replaces": "revitaliseUnliving"
+  },
+  "mindHealing": {
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["repairUnlivingAdvanced"]
+  },
+  "sourceOfUnlife": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["mindHealing", "repairUnlivingAdvanced"],
+    "replaces": ["mindHealing", "repairUnlivingAdvanced"]
+  },
+  "mortician": {
+    "description": "",
+    "tier": 2
+  },
+  "morticianExpert": {
+    "name": "Mortician (Expert)",
+    "tier": 4,
+    "prerequisites": ["mortician"],
+    "replaces": "mortician"
+  },
+  "dismissControlPlus2": {
+    "name": "Dismiss/Control +2",
+    "description": "",
+    "tier": 1
+  },
+  "dismissControlPlus4": {
+    "name": "Dismiss/Control +4",
+    "description": "",
+    "tier": 2,
+    "prerequisites": ["dismissControlPlus2"],
+    "replaces": "dismissControlPlus2"
+  },
+  "dismissControlPlus6": {
+    "name": "Dismiss/Control +6",
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["dismissControlPlus4"],
+    "replaces": "dismissControlPlus4"
+  },
+  "dismissControlPlus8": {
+    "name": "Dismiss/Control +8",
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["dismissControlPlus6"],
+    "replaces": "dismissControlPlus6"
+  },
+  "healAlienOrAberrantPattern": {
+    "description": "",
+    "tier": 3
+  },
+  "healMagicalPatter": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["healAlienOrAberrantPattern"],
+    "replaces": "healAlienOrAberrantPattern"
+  },
+  "immuneToDisease": {
+    "description": "",
+    "tier": 3
+  },
+  "discernUnliving": {
+    "description": "",
+    "tier": 3
   }
 }

@@ -24,6 +24,18 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
     }
 
     if (Helpers.isOccupationalSkill(skill)) {
+      const replaces = () => {
+        if (!skill.replaces) {
+          return 'None';
+        }
+
+        if (Array.isArray(skill.replaces)) {
+          return skill.replaces.map((s) => Helpers.camelToReadable(s)).join(', ');
+        }
+
+        return Helpers.camelToReadable(skill.replaces);
+      };
+
       return (
         <>
           <b>Cost:</b> {skill.cost}
@@ -32,7 +44,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
           <br />
           <b>Prerequisites:</b> {prerequisites ?? <i>None</i>}
           <br />
-          <b>Replaces:</b> {skill.replaces ? Helpers.camelToReadable(skill.replaces) : <i>None</i>}
+          <b>Replaces:</b> {replaces}
           <br />
         </>
       );

@@ -24,7 +24,7 @@ const App: FC = () => {
             <AppSettings />
           </SidePanel>
 
-          <Layout>
+          <Layout style={{ marginLeft: 260 }}>
             <Content>
               <AppHeader />
               <OccupationalSkill />

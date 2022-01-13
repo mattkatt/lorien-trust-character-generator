@@ -331,7 +331,7 @@
   "mindHealing": {
     "description": "",
     "tier": 4,
-    "prerequisites": ["repairUnlivingAdvanced"]
+    "prerequisites": ["repairUnlivingAdvanced||advancedHealing"]
   },
   "sourceOfUnlife": {
     "description": "",
@@ -393,6 +393,108 @@
     "tier": 3
   },
   "discernUnliving": {
+    "description": "",
+    "tier": 3
+  },
+  "revive": {
+    "description": "",
+    "tier": 1
+  },
+  "advancedHealing": {
+    "description": "",
+    "tier": 2,
+    "prerequisites": ["revive"],
+    "replaces": "revive"
+  },
+  "sourceOfLife": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["mindHealing", "advancedHealing"],
+    "replaces": ["mindHealing", "advancedHealing"]
+  },
+  "triageMaster": {
+    "name": "Triage (Master)",
+    "description": "",
+    "tier": 2
+  },
+  "triageExpert": {
+    "name": "Triage (Expert)",
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["revive"],
+    "replaces": "revive"
+  },
+  "discernPatternType": {
+    "description": "",
+    "tier": 1
+  },
+  "advancedPatternScan": {
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["discernPatternType"],
+    "replaces": "discernPatternType"
+  },
+  "guardedChannelling": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["immuneToDisease"],
+    "replaces": "immuneToDisease"
+  },
+  "discernElementalBeing": {
+    "description": "",
+    "tier": 3
+  },
+  "lastRites": {
+    "description": "",
+    "tier": 1
+  },
+  "lastRitesImproved": {
+    "name": "Last Rites (Improved)",
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["lastRites"],
+    "replaces": "lastRites"
+  },
+  "castAdditionalIncantation": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["lastRitesImproved||masterCountermagic"]
+  },
+  "castHighCountermagic": {
+    "description": "",
+    "tier": 3
+  },
+  "masterCountermagic": {
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["castHighCountermagic||highMagicIncantation"],
+    "replaces": "castHighCountermagic"
+  },
+  "transcendArmour": {
+    "description": "",
+    "tier": 2
+  },
+  "champion": {
+    "description": "",
+    "tier": 4,
+    "prerequisites": ["transcendArmour"],
+    "replaces": "transcendArmour"
+  },
+  "dedicatedFollower": {
+    "description": "",
+    "tier": 3
+  },
+  "damageReductionFatal": {
+    "description": "",
+    "tier": 5,
+    "restrictedPurchase": true,
+    "prerequisites": ["dedicatedFollower"],
+    "replaces": "dedicatedFollower"
+  },
+  "discernAncestralBeing": {
     "description": "",
     "tier": 3
   }

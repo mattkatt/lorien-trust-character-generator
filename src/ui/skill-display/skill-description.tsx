@@ -9,7 +9,18 @@ interface ISkillPopoverDescription {
 export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
   const getInfo = () => {
     const prerequisites = skill.prerequisites
-      ? skill.prerequisites.map((skill) => Helpers.camelToReadable(skill)).join(', ')
+      ? skill.prerequisites
+          .map((skill) => {
+            if (skill.includes('||')) {
+              return skill
+                .split('||')
+                .map((s) => Helpers.camelToReadable(s))
+                .join(' OR ');
+            }
+
+            return Helpers.camelToReadable(skill);
+          })
+          .join(', ')
       : null;
 
     if ('tier' in skill) {

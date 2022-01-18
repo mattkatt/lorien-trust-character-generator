@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { ISkill } from '../../data/skills';
+import { ICharacterSkill, IOccupationalSkill } from '../../data/skills';
 import { Helpers } from '../../helpers/helpers';
 
 interface ISkillPopoverDescription {
-  skill: ISkill;
+  skill: ICharacterSkill | IOccupationalSkill;
 }
 
 export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
@@ -12,18 +12,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
       ? skill.prerequisites.map((skill) => Helpers.camelToReadable(skill)).join(', ')
       : null;
 
-    if (Helpers.isCharacterSkill(skill)) {
-      return (
-        <>
-          <b>Cost:</b> {skill.cost}
-          <br />
-          <b>Prerequisites:</b> {prerequisites ?? <i>None</i>}
-          <br />
-        </>
-      );
-    }
-
-    if (Helpers.isOccupationalSkill(skill)) {
+    if ('tier' in skill) {
       const replaces = () => {
         if (!skill.replaces) {
           return <i>None</i>;
@@ -45,6 +34,15 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
           <b>Prerequisites:</b> {prerequisites ?? <i>None</i>}
           <br />
           <b>Replaces:</b> {replaces()}
+          <br />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <b>Cost:</b> {skill.cost}
+          <br />
+          <b>Prerequisites:</b> {prerequisites ?? <i>None</i>}
           <br />
         </>
       );

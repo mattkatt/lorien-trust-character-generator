@@ -3,7 +3,6 @@ import { ICharacterSkill, IOccupationalSkill, ISkill } from '../../data/skills';
 import { Button, Popover } from 'antd';
 import { SkillDescription } from './skill-description';
 import { CharacterContext } from '../../context/character-context';
-import { Helpers } from '../../helpers/helpers';
 import { AppContext } from '../../context/app-context';
 
 interface ISkillButtonProps {
@@ -19,7 +18,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
     removeCharacterSkill,
     removeOccupationalSkill,
   } = useContext(CharacterContext);
-  const skillType = Helpers.isOccupationalSkill(skill) ? 'occupational' : 'character';
+  const skillType = 'tier' in skill ? 'occupational' : 'character';
   const usedSkillList = [...characterState.characterSkills, ...characterState.occupationalSkills];
 
   const isSelected = () => usedSkillList.some((s) => s.id === skill.id);
@@ -27,9 +26,8 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
   const isDisabled = () => {
     const isRestricted = usedSkillList.some((s) => s.restrictedSkills?.includes(skill.id));
 
-    const enoughSkillPoints = Helpers.isCharacterSkill(skill)
-      ? skill.cost <= characterState.unspentCharacterSkillPoints
-      : true;
+    const enoughSkillPoints =
+      'tier' in skill ? true : skill.cost <= characterState.unspentCharacterSkillPoints;
 
     const meetsPrerequisites = skill?.prerequisites
       ? skill.prerequisites.every((prerequisite) => {

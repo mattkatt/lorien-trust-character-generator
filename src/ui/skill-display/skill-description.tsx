@@ -33,7 +33,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
                     return skill.replaces.map((s) => fullSkills[s]).join(', ');
                 }
 
-                return fullSkills[skill.replaces];
+                return fullSkills[skill.replaces].name;
             };
 
             return (

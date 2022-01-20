@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useMemo } from 'react';
 import { ICharacterSkill, IOccupationalSkill, ISkill } from '../../data/skills';
 import { Button, Popover } from 'antd';
 import { SkillDescription } from './skill-description';
@@ -21,9 +21,22 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
     const skillType = 'tier' in skill ? 'occupational' : 'character';
     const usedSkillList = [...characterState.characterSkills, ...characterState.occupationalSkills];
 
+    const tierFiveCount = useMemo<number>(
+        () =>
+            characterState.occupationalSkills.reduce(
+                (total, skill) => (skill.tier >= 5 ? total + 1 : total),
+                0,
+            ),
+        [characterState.occupationalSkills],
+    );
+
     const isSelected = () => usedSkillList.some((s) => s.id === skill.id);
 
     const isDisabled = () => {
+        if ('tier' in skill && (skill as IOccupationalSkill).tier >= 5 && tierFiveCount >= 4) {
+            return true;
+        }
+
         const isRestricted = usedSkillList.some((s) => s.restrictedSkills?.includes(skill.id));
 
         const enoughSkillPoints =

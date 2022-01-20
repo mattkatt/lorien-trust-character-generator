@@ -112,7 +112,6 @@ export const occupationalSkillList: Record<string, Array<IOccupationalSkill>> = 
         os.dismissControlPlus8,
         os.lastRites,
         os.lastRitesImproved,
-        os.castAdditionalIncantation,
         os.castHighCountermagic,
         os.masterCountermagic,
         os.castAdditionalIncantation,

@@ -10,29 +10,30 @@ import { TextBox } from '../layout/text-box';
 const { Paragraph } = Typography;
 
 export const CharacterSkills: FC = () => {
-  const { characterState } = useContext(CharacterContext);
+    const { characterState } = useContext(CharacterContext);
 
-  const totalSkillPoints =
-    characterState.spentCharacterSkillPoints + characterState.unspentCharacterSkillPoints;
+    const totalSkillPoints =
+        characterState.spentCharacterSkillPoints + characterState.unspentCharacterSkillPoints;
 
-  return (
-    <>
-      <TextBox>
-        <h2>Character Skills</h2>
-        <Paragraph>
-          Skill Point Spend: {characterState.spentCharacterSkillPoints} / {totalSkillPoints}
-        </Paragraph>
-      </TextBox>
+    return (
+        <>
+            <TextBox>
+                <h2>Character Skills</h2>
+                <Paragraph>
+                    Skill Point Spend: {characterState.spentCharacterSkillPoints} /{' '}
+                    {totalSkillPoints}
+                </Paragraph>
+            </TextBox>
 
-      <Collapse>
-        {Object.keys(characterSkillList).map((skillList) => (
-          <Collapse.Panel header={Helpers.camelToReadable(skillList)} key={skillList}>
-            {characterSkillList[skillList].map((skill) => (
-              <SkillButton key={skill.id} skill={skill} />
-            ))}
-          </Collapse.Panel>
-        ))}
-      </Collapse>
-    </>
-  );
+            <Collapse>
+                {Object.keys(characterSkillList).map((skillList) => (
+                    <Collapse.Panel header={Helpers.camelToReadable(skillList)} key={skillList}>
+                        {characterSkillList[skillList].map((skill) => (
+                            <SkillButton key={skill.id} skill={skill} />
+                        ))}
+                    </Collapse.Panel>
+                ))}
+            </Collapse>
+        </>
+    );
 };

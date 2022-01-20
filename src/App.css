@@ -1,17 +1,17 @@
 @import '~antd/dist/antd.css';
 
 .ant-form-item {
-  margin-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 .ant-form-horizontal .ant-form-item-label {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .ant-form-horizontal .ant-form-item-control {
-  flex: 0 auto;
+    flex: 0 auto;
 }
 
 .ant-card.collapsed .ant-card-body {
-  display: none;
+    display: none;
 }

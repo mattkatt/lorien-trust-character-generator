@@ -6,73 +6,73 @@ import { CharacterContext } from '../../context/character-context';
 import { AppContext } from '../../context/app-context';
 
 interface ISkillButtonProps {
-  skill: ISkill;
+    skill: ISkill;
 }
 
 export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
-  const { appState } = useContext(AppContext);
-  const {
-    characterState,
-    addCharacterSkill,
-    addOccupationalSkill,
-    removeCharacterSkill,
-    removeOccupationalSkill,
-  } = useContext(CharacterContext);
-  const skillType = 'tier' in skill ? 'occupational' : 'character';
-  const usedSkillList = [...characterState.characterSkills, ...characterState.occupationalSkills];
+    const { appState } = useContext(AppContext);
+    const {
+        characterState,
+        addCharacterSkill,
+        addOccupationalSkill,
+        removeCharacterSkill,
+        removeOccupationalSkill,
+    } = useContext(CharacterContext);
+    const skillType = 'tier' in skill ? 'occupational' : 'character';
+    const usedSkillList = [...characterState.characterSkills, ...characterState.occupationalSkills];
 
-  const isSelected = () => usedSkillList.some((s) => s.id === skill.id);
+    const isSelected = () => usedSkillList.some((s) => s.id === skill.id);
 
-  const isDisabled = () => {
-    const isRestricted = usedSkillList.some((s) => s.restrictedSkills?.includes(skill.id));
+    const isDisabled = () => {
+        const isRestricted = usedSkillList.some((s) => s.restrictedSkills?.includes(skill.id));
 
-    const enoughSkillPoints =
-      'tier' in skill ? true : skill.cost <= characterState.unspentCharacterSkillPoints;
+        const enoughSkillPoints =
+            'tier' in skill ? true : skill.cost <= characterState.unspentCharacterSkillPoints;
 
-    const meetsPrerequisites = skill?.prerequisites
-      ? skill.prerequisites.every((prerequisite) => {
-          if (prerequisite.includes('||')) {
-            return prerequisite.split('||').some((orPrerequisite) => {
-              return usedSkillList.some((usedSkill) => usedSkill.id === orPrerequisite);
-            });
-          }
+        const meetsPrerequisites = skill?.prerequisites
+            ? skill.prerequisites.every((prerequisite) => {
+                  if (prerequisite.includes('||')) {
+                      return prerequisite.split('||').some((orPrerequisite) => {
+                          return usedSkillList.some((usedSkill) => usedSkill.id === orPrerequisite);
+                      });
+                  }
 
-          return usedSkillList.some((s) => s.id === prerequisite);
-        })
-      : true;
+                  return usedSkillList.some((s) => s.id === prerequisite);
+              })
+            : true;
 
-    return isRestricted || !enoughSkillPoints || !meetsPrerequisites;
-  };
+        return isRestricted || !enoughSkillPoints || !meetsPrerequisites;
+    };
 
-  const isRestricted = (skill as IOccupationalSkill)?.restrictedPurchase ?? false;
+    const isRestricted = (skill as IOccupationalSkill)?.restrictedPurchase ?? false;
 
-  const onSkillClick = () => {
-    if (isSelected()) {
-      skillType === 'character'
-        ? removeCharacterSkill(skill as ICharacterSkill)
-        : removeOccupationalSkill(skill as IOccupationalSkill);
-    } else {
-      skillType === 'character'
-        ? addCharacterSkill(skill as ICharacterSkill)
-        : addOccupationalSkill(skill as IOccupationalSkill);
-    }
-  };
+    const onSkillClick = () => {
+        if (isSelected()) {
+            skillType === 'character'
+                ? removeCharacterSkill(skill as ICharacterSkill)
+                : removeOccupationalSkill(skill as IOccupationalSkill);
+        } else {
+            skillType === 'character'
+                ? addCharacterSkill(skill as ICharacterSkill)
+                : addOccupationalSkill(skill as IOccupationalSkill);
+        }
+    };
 
-  return appState.hideDisabledSkills && isDisabled() && !isSelected() ? null : (
-    <Popover
-      content={<SkillDescription skill={skill} />}
-      title={skill.name}
-      placement={'rightBottom'}
-    >
-      <Button
-        block
-        type={isSelected() ? 'primary' : 'dashed'}
-        disabled={isDisabled() && !isSelected()}
-        onClick={onSkillClick}
-      >
-        {`${skill.name} - {${skill.cost}}`}
-        {isRestricted ? ' @' : null}
-      </Button>
-    </Popover>
-  );
+    return appState.hideDisabledSkills && isDisabled() && !isSelected() ? null : (
+        <Popover
+            content={<SkillDescription skill={skill} />}
+            title={skill.name}
+            placement={'rightBottom'}
+        >
+            <Button
+                block
+                type={isSelected() ? 'primary' : 'dashed'}
+                disabled={isDisabled() && !isSelected()}
+                onClick={onSkillClick}
+            >
+                {`${skill.name} - {${skill.cost}}`}
+                {isRestricted ? ' @' : null}
+            </Button>
+        </Popover>
+    );
 };

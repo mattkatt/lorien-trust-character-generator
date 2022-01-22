@@ -9,26 +9,37 @@ export const SelectedOccupationalSkills: FC = () => {
     const { characterState } = useContext(CharacterContext);
     const { occupationalSkills } = characterState;
 
-    const skillsToDisplay = occupationalSkills.map((skill) => {
-        const isOverwritten = occupationalSkills.some((s) => {
-            if (Array.isArray(s.replaces)) {
-                return s.replaces.some((replaces) => replaces === skill.id);
+    const skillsToDisplay = occupationalSkills
+        .sort((skillA, skillB) => {
+            if (skillA.tier > skillB.tier) {
+                return 1;
             }
-            return s.replaces === skill.id;
-        });
+            if (skillA.tier < skillB.tier) {
+                return -1;
+            }
 
-        return isOverwritten ? null : (
-            <li key={skill.id}>
-                <Popover
-                    content={<SkillDescription skill={skill} />}
-                    title={skill.name}
-                    placement={'bottomLeft'}
-                >
-                    {skill.name}
-                </Popover>
-            </li>
-        );
-    });
+            return 0;
+        })
+        .map((skill) => {
+            const isOverwritten = occupationalSkills.some((s) => {
+                if (Array.isArray(s.replaces)) {
+                    return s.replaces.some((replaces) => replaces === skill.id);
+                }
+                return s.replaces === skill.id;
+            });
+
+            return isOverwritten ? null : (
+                <li key={skill.id}>
+                    <Popover
+                        content={<SkillDescription skill={skill} />}
+                        title={skill.name}
+                        placement={'right'}
+                    >
+                        {skill.name}
+                    </Popover>
+                </li>
+            );
+        });
 
     const ospTotal = occupationalSkills.reduce((total, skill) => total + skill.cost, 0);
 

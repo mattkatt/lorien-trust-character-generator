@@ -692,6 +692,11 @@ export const os = {
         prerequisites: ['identify'],
         replaces: 'identify',
     },
+    oathswornBank: {
+        name: 'Oathsworn <Bank>',
+        description: '',
+        tier: 1,
+    },
     bankAdvisorClerk: {
         name: 'Bank Advisor (Clerk)',
         description: '',
@@ -910,27 +915,31 @@ export const os = {
         restrictedPurchase: true,
     },
     magicalArmourMastery: {
-        description: '',
+        description:
+            'The character may use the Armour Mastery, Armour Mastery (Advanced) or Armour Mastery (Expert) Occupational Skill (if they possess them) with Magical Armour effects.',
         tier: 2,
         prerequisites: ['lightArmourUse||mediumArmourUse||heavyArmourUse'],
     },
     escapeBonds: {
-        description: '',
+        description:
+            'This skill allows the character to escape from any in-character bonds or restraints. This takes 1 minute of concentration and the character must not be Immobilised. This skill does not allow a character to escape from a locked room or other such prisons.',
         tier: 3,
     },
     shieldDismissLevel: {
-        description: '',
+        description:
+            'If a Discern <X> of the correct type is used on the character then they may respond "<X>, discern shielded". If the discerning character spends a further 10 seconds discerning the character and a second Discern Vocal is used the attempt will be successful. A character that is discerned will immediately feel a tingle of magic and be aware that they have been the target of a discern attempt (the referee or marshal will identify the character or source of the discern). If the target of the discern attempt gets further than 30 feet away before the further 10 seconds of discerning is completed then the process is disrupted and must be started anew.',
         tier: 3,
         restrictedPurchase: true,
     },
     fearsomeAspect: {
-        description: '',
+        description:
+            'The character may create an innate Mass Fear effect using 4 of their own Spell Power. This counts in all way as a level 3 mass spell and cannot be countered. The vocals are “innate mass fear”. Mass Fear may not be used on large groups or in mass combat without consulting a Referee or Marshal for safety reasons',
         tier: 4,
         restrictedPurchase: true,
     },
     plus1LHV: {
         name: '+1 LHV',
-        description: '',
+        description: 'The character gains +1LHV, subject to the rule of double.',
         tier: 5,
         restrictedPurchase: true,
     },

@@ -889,7 +889,7 @@ export const os = {
         tier: 2,
     },
     armourMasteryAdvanced: {
-        name: 'Armour Mastery (Expert)',
+        name: 'Armour Mastery (Advanced)',
         description: '',
         tier: 4,
         prerequisites: ['armourMastery'],

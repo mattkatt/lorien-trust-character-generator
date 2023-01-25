@@ -87,24 +87,11 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
             disabledMsg += 'Does not meet prerequisites.\n';
         }
 
-        // if (isRestricted) {
-        //     isDisabled = true;
-        //     disabledMsg += 'Skill is restricted.\n';
-        // }
-
-        if (isDisabled) {
-            setIsSkillDisabled({
-                state: true,
-                msg: disabledMsg,
-            });
-        }
-    }, [
-        skill,
-        characterState.unspentCharacterSkillPoints,
-        isRestricted,
-        setIsSkillDisabled,
-        tierFiveCount,
-    ]);
+        setIsSkillDisabled({
+            state: isDisabled,
+            msg: disabledMsg,
+        });
+    }, [skill, characterState, isRestricted, setIsSkillDisabled, tierFiveCount]);
 
     const onSkillClick = () => {
         if (isSelected) {

@@ -1,3 +1,9 @@
+/**
+ * All content in this file is copyright 2023 Lorien Trust - no reproduction or
+ * alteration of this data is permissable without permission from Lorien Trust
+ * or its parent company, Merlinroute.
+ */
+
 export const cs = {
     ambidexterity: {
         cost: 2,

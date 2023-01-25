@@ -1,5 +1,5 @@
 import { createContext, FC, useEffect, useState } from 'react';
-import { ICharacterSkill, IOccupationalSkill } from '../data/skills';
+import { ICharacterSkill, IOccupationalSkill, ISkill } from '../data/skills';
 
 interface ICharacterState {
     spentCharacterSkillPoints: number;
@@ -7,6 +7,7 @@ interface ICharacterState {
     characterOSPs: number;
     characterSkills: Array<ICharacterSkill>;
     occupationalSkills: Array<IOccupationalSkill>;
+    allSkills: Array<ISkill>;
     activeSkills: number;
 }
 
@@ -24,6 +25,7 @@ export const defaultCharacterState: ICharacterState = {
     characterOSPs: 0,
     characterSkills: [],
     occupationalSkills: [],
+    allSkills: [],
     activeSkills: 0,
     spentCharacterSkillPoints: 0,
     unspentCharacterSkillPoints: 16,
@@ -59,6 +61,7 @@ export const CharacterProvider: FC = ({ children }) => {
     const addCharacterSkill = (skill: ICharacterSkill) => {
         const stateCopy = { ...state };
         stateCopy.characterSkills.push(skill);
+        stateCopy.allSkills.push(skill);
         stateCopy.spentCharacterSkillPoints += skill.cost;
         stateCopy.unspentCharacterSkillPoints -= skill.cost;
         setCharacterState(stateCopy);
@@ -69,6 +72,9 @@ export const CharacterProvider: FC = ({ children }) => {
         stateCopy.characterSkills = state.characterSkills.filter((characterSkill) => {
             return characterSkill.id !== skill.id;
         });
+        stateCopy.allSkills = state.allSkills.filter((allSkill) => {
+            return allSkill.id !== skill.id;
+        });
         stateCopy.spentCharacterSkillPoints -= skill.cost;
         stateCopy.unspentCharacterSkillPoints += skill.cost;
         setCharacterState(stateCopy);
@@ -77,6 +83,7 @@ export const CharacterProvider: FC = ({ children }) => {
     const addOccupationalSkill = (skill: IOccupationalSkill) => {
         const stateCopy = { ...state };
         stateCopy.occupationalSkills.push(skill);
+        stateCopy.allSkills.push(skill);
         stateCopy.characterOSPs += skill.cost;
         setCharacterState(stateCopy);
     };
@@ -85,6 +92,9 @@ export const CharacterProvider: FC = ({ children }) => {
         const stateCopy = { ...state };
         stateCopy.occupationalSkills = state.occupationalSkills.filter((occupationalSkill) => {
             return occupationalSkill.id !== skill.id;
+        });
+        stateCopy.allSkills = state.allSkills.filter((allSkill) => {
+            return allSkill.id !== skill.id;
         });
         stateCopy.characterOSPs -= skill.cost;
         setCharacterState(stateCopy);

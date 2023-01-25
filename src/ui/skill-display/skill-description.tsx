@@ -1,12 +1,14 @@
 import React, { FC } from 'react';
 import { ICharacterSkill, IOccupationalSkill } from '../../data/skills';
 import { fullSkills } from '../../data/skills';
+import { Alert } from 'antd';
 
 interface ISkillPopoverDescription {
     skill: ICharacterSkill | IOccupationalSkill;
+    disabledReason?: string;
 }
 
-export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
+export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill, disabledReason = '' }) => {
     const getInfo = () => {
         const prerequisites = skill.prerequisites
             ? skill.prerequisites
@@ -30,7 +32,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
                 }
 
                 if (Array.isArray(skill.replaces)) {
-                    return skill.replaces.map((s) => fullSkills[s]).join(', ');
+                    return skill.replaces.map((s) => fullSkills[s].name).join(', ');
                 }
 
                 return fullSkills[skill.replaces].name;
@@ -64,6 +66,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill }) => {
         <div style={{ maxWidth: '60vw' }}>
             {getInfo()}
             {skill.description}
+            {disabledReason !== '' ? <Alert message={disabledReason} type='error' /> : null}
         </div>
     );
 };

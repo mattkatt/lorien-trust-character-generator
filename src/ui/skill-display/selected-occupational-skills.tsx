@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { Alert, Popover, Typography } from 'antd';
+import { Alert, List, Popover, Typography } from 'antd';
 import { CharacterContext } from '../../context/character-context';
 import { SkillDescription } from './skill-description';
 
@@ -53,7 +53,7 @@ export const SelectedOccupationalSkills: FC = () => {
                     Total OSPs: <b>{ospTotal}</b>
                 </Paragraph>
             )}
-            <ul>{skillsToDisplay}</ul>
+            <List>{skillsToDisplay}</List>
         </div>
     );
 };

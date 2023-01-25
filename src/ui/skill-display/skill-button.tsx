@@ -1,4 +1,4 @@
-import React, { FC, useContext, useMemo } from 'react';
+import React, { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { ICharacterSkill, IOccupationalSkill, ISkill } from '../../data/skills';
 import { Button, Popover } from 'antd';
 import { SkillDescription } from './skill-description';
@@ -19,7 +19,12 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
         removeOccupationalSkill,
     } = useContext(CharacterContext);
     const skillType = 'tier' in skill ? 'occupational' : 'character';
-    const usedSkillList = [...characterState.characterSkills, ...characterState.occupationalSkills];
+    const [isSkillDisabled, setIsSkillDisabled] = useState({
+        state: false,
+        msg: '',
+    });
+
+    const isRestricted = (skill as IOccupationalSkill)?.restrictedPurchase ?? false;
 
     const tierFiveCount = useMemo<number>(
         () =>
@@ -30,37 +35,79 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
         [characterState.occupationalSkills],
     );
 
-    const isSelected = () => usedSkillList.some((s) => s.id === skill.id);
+    const isSelected = characterState.allSkills.some((s) => s.id === skill.id);
 
-    const isDisabled = () => {
+    useEffect(() => {
+        let isDisabled = false;
+        let disabledMsg = '';
+
         if ('tier' in skill && (skill as IOccupationalSkill).tier >= 5 && tierFiveCount >= 4) {
-            return true;
+            isDisabled = true;
+            disabledMsg += 'Too many tier 5 skills.\n';
         }
 
-        const isRestricted = usedSkillList.some((s) => s.restrictedSkills?.includes(skill.id));
+        const checkIfRestricted = (s: ISkill) => {
+            if (s.restrictedSkills?.includes(skill.id)) {
+                isDisabled = true;
+                disabledMsg += `Is restricted by ${s.name}.\n`;
+                return true;
+            }
 
-        const enoughSkillPoints =
+            return false;
+        };
+
+        characterState.allSkills.some(checkIfRestricted);
+
+        const enoughCharacterSkillPoints =
             'tier' in skill ? true : skill.cost <= characterState.unspentCharacterSkillPoints;
 
-        const meetsPrerequisites = skill?.prerequisites
-            ? skill.prerequisites.every((prerequisite) => {
-                  if (prerequisite.includes('||')) {
-                      return prerequisite.split('||').some((orPrerequisite) => {
-                          return usedSkillList.some((usedSkill) => usedSkill.id === orPrerequisite);
-                      });
-                  }
+        if (!enoughCharacterSkillPoints) {
+            isDisabled = true;
+            disabledMsg += 'Not enough character skill points.\n';
+        }
 
-                  return usedSkillList.some((s) => s.id === prerequisite);
-              })
+        const checkMeetsPrerequisites = (prerequisite: string) => {
+            if (prerequisite.includes('||')) {
+                return prerequisite.split('||').some((orPrerequisite) => {
+                    return characterState.allSkills.some(
+                        (usedSkill) => usedSkill.id === orPrerequisite,
+                    );
+                });
+            }
+
+            return characterState.allSkills.some((s) => s.id === prerequisite);
+        };
+
+        const meetsPrerequisites = skill?.prerequisites
+            ? skill.prerequisites.every(checkMeetsPrerequisites)
             : true;
 
-        return isRestricted || !enoughSkillPoints || !meetsPrerequisites;
-    };
+        if (!meetsPrerequisites) {
+            isDisabled = true;
+            disabledMsg += 'Does not meet prerequisites.\n';
+        }
 
-    const isRestricted = (skill as IOccupationalSkill)?.restrictedPurchase ?? false;
+        // if (isRestricted) {
+        //     isDisabled = true;
+        //     disabledMsg += 'Skill is restricted.\n';
+        // }
+
+        if (isDisabled) {
+            setIsSkillDisabled({
+                state: true,
+                msg: disabledMsg,
+            });
+        }
+    }, [
+        skill,
+        characterState.unspentCharacterSkillPoints,
+        isRestricted,
+        setIsSkillDisabled,
+        tierFiveCount,
+    ]);
 
     const onSkillClick = () => {
-        if (isSelected()) {
+        if (isSelected) {
             skillType === 'character'
                 ? removeCharacterSkill(skill as ICharacterSkill)
                 : removeOccupationalSkill(skill as IOccupationalSkill);
@@ -71,20 +118,19 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skill }) => {
         }
     };
 
-    return appState.hideDisabledSkills && isDisabled() && !isSelected() ? null : (
+    return appState.hideDisabledSkills && isSkillDisabled.state && !isSelected ? null : (
         <Popover
-            content={<SkillDescription skill={skill} />}
+            content={<SkillDescription skill={skill} disabledReason={isSkillDisabled.msg} />}
             title={skill.name}
             placement={'rightBottom'}
         >
             <Button
                 block
-                type={isSelected() ? 'primary' : 'dashed'}
-                disabled={isDisabled() && !isSelected()}
+                type={isSelected ? 'primary' : 'dashed'}
+                disabled={isSkillDisabled.state && !isSelected}
                 onClick={onSkillClick}
             >
-                {`${skill.name} - {${skill.cost}}`}
-                {isRestricted ? ' @' : null}
+                {`${skill.name} - {${skill.cost}}`} {isRestricted ? ' @' : null}
             </Button>
         </Popover>
     );

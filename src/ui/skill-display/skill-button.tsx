@@ -86,6 +86,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
                 type={isSelected ? 'primary' : 'dashed'}
                 disabled={!!isDisabled && !isSelected}
                 onClick={onSkillClick}
+                style={{ whiteSpace: 'normal', height: 'auto' }}
             >
                 {`${skill.name} - {${skill.cost}}`} {skill.restrictedPurchase ? ' @' : null}
             </Button>

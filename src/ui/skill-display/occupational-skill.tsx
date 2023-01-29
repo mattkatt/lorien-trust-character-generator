@@ -1,15 +1,15 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Alert, Col, Row } from 'antd';
 
-import { CharacterContext } from '../../context/character-context';
-import { occupationalSkillList } from '../../data/occupational-skill-list';
 import { SelectedOccupationalSkills } from './selected-occupational-skills';
 import { OccupationalSkillList } from './occupational-skill-list';
+import { useCharacterContext, useDataContext } from '../../context/hooks';
 
 type breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export const OccupationalSkill: FC = () => {
-    const { characterState } = useContext(CharacterContext);
+    const { characterState } = useCharacterContext();
+    const { dataState } = useDataContext();
     const [size, setSize] = useState<breakpoint>('xs');
 
     useEffect(() => {
@@ -75,7 +75,7 @@ export const OccupationalSkill: FC = () => {
             </Row>
 
             <Row style={{ margin: '15px' }} gutter={16}>
-                {Object.keys(occupationalSkillList).map((skillListKey) => (
+                {Object.keys(dataState.osList).map((skillListKey) => (
                     <Col
                         span={getColSpan(size)}
                         key={skillListKey}

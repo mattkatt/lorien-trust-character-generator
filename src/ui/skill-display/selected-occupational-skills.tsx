@@ -1,15 +1,20 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { Alert, List, Popover, Typography } from 'antd';
-import { CharacterContext } from '../../context/character-context';
 import { SkillDescription } from './skill-description';
+import { useCharacterContext, useDataContext } from '../../context/hooks';
+import { Skill } from '../../data/models/skill';
 
 const { Paragraph } = Typography;
 
 export const SelectedOccupationalSkills: FC = () => {
-    const { characterState } = useContext(CharacterContext);
-    const { occupationalSkills } = characterState;
+    const { characterState } = useCharacterContext();
+    const { dataState } = useDataContext();
 
-    const skillsToDisplay = occupationalSkills
+    const occupationalSkills: Array<Skill> = characterState.skills
+        .map((skillId) => {
+            return dataState.skillRecord[skillId];
+        })
+        .filter((skill) => skill.isOS)
         .sort((skillA, skillB) => {
             if (skillA.tier > skillB.tier) {
                 return 1;
@@ -19,38 +24,38 @@ export const SelectedOccupationalSkills: FC = () => {
             }
 
             return 0;
-        })
-        .map((skill) => {
-            const isOverwritten = occupationalSkills.some((s) => {
-                if (Array.isArray(s.replaces)) {
-                    return s.replaces.some((replaces) => replaces === skill.id);
-                }
-                return s.replaces === skill.id;
-            });
-
-            return isOverwritten ? null : (
-                <li key={skill.id}>
-                    <Popover
-                        content={<SkillDescription skill={skill} />}
-                        title={skill.name}
-                        placement={'right'}
-                    >
-                        {skill.name}
-                    </Popover>
-                </li>
-            );
         });
 
-    const ospTotal = occupationalSkills.reduce((total, skill) => total + skill.cost, 0);
+    const skillsToDisplay = occupationalSkills.map((skill) => {
+        const isOverwritten = false;
+        // const isOverwritten = dataState.osList.some((s) => {
+        //     if (Array.isArray(s.replaces)) {
+        //         return s.replaces.some((replaces) => replaces === skill.id);
+        //     }
+        //     return s.replaces === skill.id;
+        // });
+
+        return isOverwritten ? null : (
+            <li key={skill.id}>
+                <Popover
+                    content={<SkillDescription skill={skill} />}
+                    title={skill.name}
+                    placement={'right'}
+                >
+                    {skill.name}
+                </Popover>
+            </li>
+        );
+    });
 
     return (
         <div style={{ backgroundColor: 'white', padding: '28px' }}>
             <h2>Selected Occupational Skills:</h2>
-            {occupationalSkills.length <= 0 ? (
+            {skillsToDisplay.length <= 0 ? (
                 <Alert message='No skills selected' />
             ) : (
                 <Paragraph>
-                    Total OSPs: <b>{ospTotal}</b>
+                    Total OSPs: <b>{characterState.characterOSPs}</b>
                 </Paragraph>
             )}
             <List>{skillsToDisplay}</List>

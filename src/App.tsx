@@ -11,34 +11,37 @@ import { OccupationalSkill } from './ui/skill-display/occupational-skill';
 import { CharacterSkills } from './ui/skill-display/character-skills';
 
 import './App.css';
+import { DataProvider } from './context/data-context';
 
 const App: FC = () => {
     const { Content } = Layout;
 
     return (
         <AppProvider>
-            <CharacterProvider>
-                <Layout style={{ minHeight: '100vh' }}>
-                    <SidePanel>
-                        <CharacterSkills />
-                        <AppSettings />
-                    </SidePanel>
+            <DataProvider>
+                <CharacterProvider>
+                    <Layout style={{ minHeight: '100vh' }}>
+                        <SidePanel>
+                            <CharacterSkills />
+                            <AppSettings />
+                        </SidePanel>
 
-                    <Layout style={{ marginLeft: 260 }}>
-                        <Content>
-                            <AppHeader />
-                            <OccupationalSkill />
-                        </Content>
-                        <AppFooter>
-                            <span>
-                                Creative Content &copy;{' '}
-                                <a href='https://lorientrust.com/'>Lorien Trust</a> | App by{' '}
-                                <a href='https://github.com/mattkatt'>Matt Evans</a>
-                            </span>
-                        </AppFooter>
+                        <Layout style={{ marginLeft: 260 }}>
+                            <Content>
+                                <AppHeader />
+                                <OccupationalSkill />
+                            </Content>
+                            <AppFooter>
+                                <span>
+                                    Creative Content &copy;{' '}
+                                    <a href='https://lorientrust.com/'>Lorien Trust</a> | App by{' '}
+                                    <a href='https://github.com/mattkatt'>Matt Evans</a>
+                                </span>
+                            </AppFooter>
+                        </Layout>
                     </Layout>
-                </Layout>
-            </CharacterProvider>
+                </CharacterProvider>
+            </DataProvider>
         </AppProvider>
     );
 };

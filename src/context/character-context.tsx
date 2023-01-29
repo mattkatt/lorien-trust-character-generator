@@ -1,47 +1,40 @@
 import { createContext, FC, useEffect, useState } from 'react';
-import { ICharacterSkill, IOccupationalSkill, ISkill } from '../data/skills';
+import { Skill } from '../data/models/skill';
+import { useDataContext } from './hooks';
 
 interface ICharacterState {
-    spentCharacterSkillPoints: number;
+    skills: Array<Skill['id']>;
     unspentCharacterSkillPoints: number;
     characterOSPs: number;
-    characterSkills: Array<ICharacterSkill>;
-    occupationalSkills: Array<IOccupationalSkill>;
-    allSkills: Array<ISkill>;
-    activeSkills: number;
 }
 
 interface ICharacterContext {
     characterState: ICharacterState;
-    addCharacterSkill: (skill: ICharacterSkill) => void;
-    removeCharacterSkill: (skill: ICharacterSkill) => void;
-    addOccupationalSkill: (skill: IOccupationalSkill) => void;
-    removeOccupationalSkill: (skill: IOccupationalSkill) => void;
+    addSkill: (skill: Skill) => void;
+    removeSkill: (skill: Skill) => void;
+    tierFiveTotal: () => number;
 }
 
 const CHARACTER_STATE = 'characterState';
 
 export const defaultCharacterState: ICharacterState = {
-    characterOSPs: 0,
-    characterSkills: [],
-    occupationalSkills: [],
-    allSkills: [],
-    activeSkills: 0,
-    spentCharacterSkillPoints: 0,
+    skills: [],
     unspentCharacterSkillPoints: 16,
+    characterOSPs: 0,
 };
 
 const defaultCharacterContext: ICharacterContext = {
     characterState: defaultCharacterState,
-    addCharacterSkill: () => {},
-    removeCharacterSkill: () => {},
-    addOccupationalSkill: () => {},
-    removeOccupationalSkill: () => {},
+    addSkill: () => {},
+    removeSkill: () => {},
+    tierFiveTotal: () => 0,
 };
 
 export const CharacterContext = createContext<ICharacterContext>(defaultCharacterContext);
+CharacterContext.displayName = 'CharacterContext';
 
 export const CharacterProvider: FC = ({ children }) => {
+    const { dataState } = useDataContext();
     const [state, setState] = useState(defaultCharacterState);
 
     useEffect(() => {
@@ -58,56 +51,50 @@ export const CharacterProvider: FC = ({ children }) => {
         localStorage.setItem(CHARACTER_STATE, JSON.stringify(newState));
     };
 
-    const addCharacterSkill = (skill: ICharacterSkill) => {
+    const addSkill = (skill: Skill) => {
         const stateCopy = { ...state };
-        stateCopy.characterSkills.push(skill);
-        stateCopy.allSkills.push(skill);
-        stateCopy.spentCharacterSkillPoints += skill.cost;
-        stateCopy.unspentCharacterSkillPoints -= skill.cost;
+
+        if (skill.isOS) {
+            stateCopy.skills.push(skill.id);
+            stateCopy.characterOSPs += skill.cost;
+        } else {
+            if (stateCopy.unspentCharacterSkillPoints >= skill.cost) {
+                stateCopy.skills.push(skill.id);
+                stateCopy.unspentCharacterSkillPoints -= skill.cost;
+            } else {
+                throw new Error('Cannot add CS Skill - not enough points');
+            }
+        }
+
         setCharacterState(stateCopy);
     };
 
-    const removeCharacterSkill = (skill: ICharacterSkill) => {
+    const removeSkill = (skill: Skill) => {
         const stateCopy = { ...state };
-        stateCopy.characterSkills = state.characterSkills.filter((characterSkill) => {
-            return characterSkill.id !== skill.id;
-        });
-        stateCopy.allSkills = state.allSkills.filter((allSkill) => {
-            return allSkill.id !== skill.id;
-        });
-        stateCopy.spentCharacterSkillPoints -= skill.cost;
-        stateCopy.unspentCharacterSkillPoints += skill.cost;
+
+        stateCopy.skills.filter((skillId) => skill.id !== skillId);
+
+        if (skill.isOS) {
+            stateCopy.characterOSPs -= skill.cost;
+        } else {
+            stateCopy.unspentCharacterSkillPoints += skill.cost;
+        }
+
         setCharacterState(stateCopy);
     };
 
-    const addOccupationalSkill = (skill: IOccupationalSkill) => {
-        const stateCopy = { ...state };
-        stateCopy.occupationalSkills.push(skill);
-        stateCopy.allSkills.push(skill);
-        stateCopy.characterOSPs += skill.cost;
-        setCharacterState(stateCopy);
-    };
-
-    const removeOccupationalSkill = (skill: IOccupationalSkill) => {
-        const stateCopy = { ...state };
-        stateCopy.occupationalSkills = state.occupationalSkills.filter((occupationalSkill) => {
-            return occupationalSkill.id !== skill.id;
-        });
-        stateCopy.allSkills = state.allSkills.filter((allSkill) => {
-            return allSkill.id !== skill.id;
-        });
-        stateCopy.characterOSPs -= skill.cost;
-        setCharacterState(stateCopy);
-    };
+    const tierFiveTotal = () =>
+        Object.entries(dataState.skillRecord).reduce((previousValue, currentValue) => {
+            return currentValue[1].tier === 5 ? previousValue + 1 : previousValue;
+        }, 0);
 
     return (
         <CharacterContext.Provider
             value={{
                 characterState: state,
-                addCharacterSkill,
-                removeCharacterSkill,
-                addOccupationalSkill,
-                removeOccupationalSkill,
+                addSkill,
+                removeSkill,
+                tierFiveTotal,
             }}
         >
             {children}

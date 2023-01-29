@@ -1,14 +1,17 @@
 import React, { FC } from 'react';
-import { ICharacterSkill, IOccupationalSkill } from '../../data/skills';
-import { fullSkills } from '../../data/skills';
 import { Alert } from 'antd';
+import { ISkill } from '../../data/interfaces/skills';
+import { useDataContext } from '../../context/hooks';
 
 interface ISkillPopoverDescription {
-    skill: ICharacterSkill | IOccupationalSkill;
-    disabledReason?: string;
+    skill: ISkill;
+    disabled?: false | string;
 }
 
-export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill, disabledReason = '' }) => {
+export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill, disabled }) => {
+    const { dataState } = useDataContext();
+    const { skillRecord } = dataState;
+
     const getInfo = () => {
         const prerequisites = skill.prerequisites
             ? skill.prerequisites
@@ -16,26 +19,26 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill, disabled
                       if (skill.includes('||')) {
                           return skill
                               .split('||')
-                              .map((s) => fullSkills[s].name)
+                              .map((s) => skillRecord[s].name)
                               .join(' OR ');
                       }
 
-                      return fullSkills[skill].name;
+                      return skillRecord[skill].name;
                   })
                   .join(', ')
             : null;
 
-        if ('tier' in skill) {
+        if (skill.tier > 0) {
             const replaces = () => {
                 if (!skill.replaces) {
                     return <i>None</i>;
                 }
 
                 if (Array.isArray(skill.replaces)) {
-                    return skill.replaces.map((s) => fullSkills[s].name).join(', ');
+                    return skill.replaces.map((s) => skillRecord[s].name).join(', ');
                 }
 
-                return fullSkills[skill.replaces].name;
+                return skillRecord[skill.replaces].name;
             };
 
             return (
@@ -66,7 +69,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill, disabled
         <div style={{ maxWidth: '60vw' }}>
             {getInfo()}
             {skill.description}
-            {disabledReason !== '' ? <Alert message={disabledReason} type='error' /> : null}
+            {disabled ? <Alert message={disabled} type='error' /> : null}
         </div>
     );
 };

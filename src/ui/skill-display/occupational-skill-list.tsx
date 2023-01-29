@@ -1,26 +1,28 @@
 import React, { FC, useState } from 'react';
 import { Card } from 'antd';
 
-import { Helpers } from '../../helpers/helpers';
-import { occupationalSkillList } from '../../data/occupational-skill-list';
+import { StringHelpers } from '../../helpers/string-helpers';
 import { SkillButton } from './skill-button';
 import { CollapseIcon } from '../icons';
+import { useDataContext } from '../../context/hooks';
 
 interface IOccupationalSkillListProps {
     skillListKey: string;
 }
 
 export const OccupationalSkillList: FC<IOccupationalSkillListProps> = ({ skillListKey }) => {
+    const { dataState } = useDataContext();
     const [collapsed, setCollapsed] = useState(false);
+    const list = dataState.osList[skillListKey];
 
     return (
         <Card
-            title={Helpers.camelToReadable(skillListKey)}
+            title={StringHelpers.camelToReadable(skillListKey)}
             extra={<CollapseIcon collapsed={collapsed} onClick={() => setCollapsed(!collapsed)} />}
             className={collapsed ? 'collapsed' : ''}
         >
-            {occupationalSkillList[skillListKey].map((skill) => (
-                <SkillButton key={skill.id} skill={skill} />
+            {Object.keys(list).map((skillId) => (
+                <SkillButton key={skillId} skillId={skillId} />
             ))}
         </Card>
     );

@@ -21,6 +21,7 @@ const defaultAppContext: IAppContext = {
 };
 
 export const AppContext = createContext<IAppContext>(defaultAppContext);
+AppContext.displayName = 'AppContext';
 
 export const AppProvider: FC = ({ children }) => {
     const [state, setState] = useState(defaultAppState);

@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { Button, Popover } from 'antd';
 
 import { SkillDescription } from './skill-description';
@@ -16,10 +16,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
 
     const skill = dataState.skillRecord[skillId];
 
-    const isSelected = useMemo(
-        () => characterState.skills.some((s) => s === skill.id),
-        [characterState.skills, skill],
-    );
+    const isSelected = characterState.skills.some((s) => s === skill.id);
 
     const isDisabled: false | string = useMemo(() => {
         let disabledMsg = '';
@@ -71,9 +68,9 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
         tierFiveTotal,
     ]);
 
-    const onSkillClick = () => {
-        isSelected ? addSkill(skill) : removeSkill(skill);
-    };
+    const onSkillClick = useCallback(() => {
+        !isSelected ? addSkill(skill) : removeSkill(skill);
+    }, [skill, isSelected, addSkill, removeSkill]);
 
     return appState.hideDisabledSkills && isDisabled && !isSelected ? null : (
         <Popover

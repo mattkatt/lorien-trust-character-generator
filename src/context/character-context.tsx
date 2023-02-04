@@ -70,9 +70,10 @@ export const CharacterProvider: FC = ({ children }) => {
     };
 
     const removeSkill = (skill: Skill) => {
-        const stateCopy = { ...state };
-
-        stateCopy.skills.filter((skillId) => skill.id !== skillId);
+        const stateCopy = {
+            ...state,
+            skills: state.skills.filter((skillId) => skill.id !== skillId),
+        };
 
         if (skill.isOS) {
             stateCopy.characterOSPs -= skill.cost;

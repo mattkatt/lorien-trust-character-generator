@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { CSSProperties, FC, useCallback, useMemo } from 'react';
 import { Button, Popover } from 'antd';
 
 import { SkillDescription } from './skill-description';
@@ -72,6 +72,13 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
         !isSelected ? addSkill(skill) : removeSkill(skill);
     }, [skill, isSelected, addSkill, removeSkill]);
 
+    const buttonStyle: CSSProperties = useMemo(() => {
+        return {
+            whiteSpace: 'normal',
+            height: 'auto',
+        };
+    }, []);
+
     return appState.hideDisabledSkills && isDisabled && !isSelected ? null : (
         <Popover
             content={<SkillDescription skill={skill} disabled={isDisabled} />}
@@ -83,7 +90,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
                 type={isSelected ? 'primary' : 'dashed'}
                 disabled={!!isDisabled && !isSelected}
                 onClick={onSkillClick}
-                style={{ whiteSpace: 'normal', height: 'auto' }}
+                style={buttonStyle}
             >
                 {`${skill.name} - {${skill.cost}}`} {skill.restrictedPurchase ? ' @' : null}
             </Button>

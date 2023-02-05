@@ -12,7 +12,7 @@ interface IAppContext {
 const APP_STATE = 'appState';
 
 export const defaultAppState: IAppState = {
-    hideDisabledSkills: false,
+    hideDisabledSkills: true,
 };
 
 const defaultAppContext: IAppContext = {

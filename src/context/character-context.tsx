@@ -13,6 +13,7 @@ interface ICharacterContext {
     addSkill: (skill: Skill) => void;
     removeSkill: (skill: Skill) => void;
     tierFiveTotal: () => number;
+    reset: () => void;
 }
 
 const CHARACTER_STATE = 'characterState';
@@ -28,6 +29,7 @@ const defaultCharacterContext: ICharacterContext = {
     addSkill: () => {},
     removeSkill: () => {},
     tierFiveTotal: () => 0,
+    reset: () => {},
 };
 
 export const CharacterContext = createContext<ICharacterContext>(defaultCharacterContext);
@@ -91,6 +93,10 @@ export const CharacterProvider: FC = ({ children }) => {
                 : previousValue;
         }, 0);
 
+    const reset = () => {
+        setCharacterState(defaultCharacterState);
+    };
+
     return (
         <CharacterContext.Provider
             value={{
@@ -98,6 +104,7 @@ export const CharacterProvider: FC = ({ children }) => {
                 addSkill,
                 removeSkill,
                 tierFiveTotal,
+                reset,
             }}
         >
             {children}

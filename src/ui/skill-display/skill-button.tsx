@@ -81,7 +81,9 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
 
     return appState.hideDisabledSkills && isDisabled && !isSelected ? null : (
         <Popover
-            content={<SkillDescription skill={skill} disabled={isDisabled} />}
+            content={
+                <SkillDescription skill={skill} disabled={!isSelected ? isDisabled : undefined} />
+            }
             title={skill.name}
             placement={'rightBottom'}
         >

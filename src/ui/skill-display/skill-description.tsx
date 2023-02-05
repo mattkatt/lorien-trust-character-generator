@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Alert } from 'antd';
-import { ISkill } from '../../data/interfaces/skills';
 import { useDataContext } from '../../context/hooks';
+import { Skill } from '../../data/models/skill';
 
 interface ISkillPopoverDescription {
-    skill: ISkill;
+    skill: Skill;
     disabled?: false | string;
 }
 

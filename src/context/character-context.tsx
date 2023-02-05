@@ -1,6 +1,6 @@
 import { createContext, FC, useEffect, useState } from 'react';
-import { Skill } from '../data/models/skill';
 import { useDataContext } from './hooks';
+import { Skill } from '../data/models/skill';
 
 interface ICharacterState {
     skills: Array<Skill['id']>;
@@ -85,8 +85,10 @@ export const CharacterProvider: FC = ({ children }) => {
     };
 
     const tierFiveTotal = () =>
-        Object.entries(dataState.skillRecord).reduce((previousValue, currentValue) => {
-            return currentValue[1].tier === 5 ? previousValue + 1 : previousValue;
+        state.skills.reduce((previousValue, currentValue) => {
+            return dataState.skillRecord[currentValue].tier === 5
+                ? previousValue + 1
+                : previousValue;
         }, 0);
 
     return (

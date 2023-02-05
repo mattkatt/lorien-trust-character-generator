@@ -6,23 +6,25 @@ import { SkillButton } from './skill-button';
 import { TextBox } from '../layout/text-box';
 import { useCharacterContext, useDataContext } from '../../context/hooks';
 
-const { Paragraph } = Typography;
+const { Paragraph, Title } = Typography;
 
 export const CharacterSkills: FC = () => {
     const { characterState } = useCharacterContext();
     const { dataState } = useDataContext();
 
+    const skillRecordKeys = Object.keys(dataState.csList);
+
     return (
         <>
             <TextBox>
-                <h2>Character Skills</h2>
+                <Title level={3}>Character Skills</Title>
                 <Paragraph>
                     Skill Point Spend: {16 - characterState.unspentCharacterSkillPoints} / 16
                 </Paragraph>
             </TextBox>
 
-            <Collapse>
-                {Object.keys(dataState.csList).map((skillRecordId) => (
+            <Collapse defaultActiveKey={skillRecordKeys}>
+                {skillRecordKeys.map((skillRecordId) => (
                     <Collapse.Panel
                         header={StringHelpers.camelToReadable(skillRecordId)}
                         key={skillRecordId}

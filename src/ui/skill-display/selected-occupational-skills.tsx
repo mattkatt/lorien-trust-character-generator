@@ -4,7 +4,7 @@ import { SkillDescription } from './skill-description';
 import { useCharacterContext, useDataContext } from '../../context/hooks';
 import { Skill } from '../../data/models/skill';
 
-const { Paragraph } = Typography;
+const { Paragraph, Title } = Typography;
 
 export const SelectedOccupationalSkills: FC = () => {
     const { characterState } = useCharacterContext();
@@ -49,8 +49,8 @@ export const SelectedOccupationalSkills: FC = () => {
     });
 
     return (
-        <div style={{ backgroundColor: 'white', padding: '28px' }}>
-            <h2>Selected Occupational Skills:</h2>
+        <div style={{ backgroundColor: 'white', padding: '23px' }}>
+            <Title level={3}>Selected Occupational Skills:</Title>
             {skillsToDisplay.length <= 0 ? (
                 <Alert message='No skills selected' />
             ) : (

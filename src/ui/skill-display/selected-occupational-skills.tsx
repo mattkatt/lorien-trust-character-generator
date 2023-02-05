@@ -27,13 +27,7 @@ export const SelectedOccupationalSkills: FC = () => {
         });
 
     const skillsToDisplay = occupationalSkills.map((skill) => {
-        const isOverwritten = false;
-        // const isOverwritten = dataState.osList.some((s) => {
-        //     if (Array.isArray(s.replaces)) {
-        //         return s.replaces.some((replaces) => replaces === skill.id);
-        //     }
-        //     return s.replaces === skill.id;
-        // });
+        const isOverwritten = occupationalSkills.some((osSkill) => osSkill.replaces === skill.id);
 
         return isOverwritten ? null : (
             <li key={skill.id}>

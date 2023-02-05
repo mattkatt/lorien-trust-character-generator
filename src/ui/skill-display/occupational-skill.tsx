@@ -1,11 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Alert, Col, Row } from 'antd';
+import { Alert, Col, Row, Typography } from 'antd';
 
 import { SelectedOccupationalSkills } from './selected-occupational-skills';
 import { OccupationalSkillList } from './occupational-skill-list';
 import { useCharacterContext, useDataContext } from '../../context/hooks';
 
 type breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+const { Title } = Typography;
 
 export const OccupationalSkill: FC = () => {
     const { characterState } = useCharacterContext();
@@ -58,7 +60,7 @@ export const OccupationalSkill: FC = () => {
 
     return (
         <>
-            <Row>
+            <Row style={{ position: 'sticky', top: 0, zIndex: 1 }}>
                 <Col span={24}>
                     <SelectedOccupationalSkills />
 
@@ -70,7 +72,7 @@ export const OccupationalSkill: FC = () => {
 
             <Row style={{ margin: '15px' }} gutter={16}>
                 <Col span={24}>
-                    <h2>Available Skills:</h2>
+                    <Title level={3}>Available Skills:</Title>
                 </Col>
             </Row>
 

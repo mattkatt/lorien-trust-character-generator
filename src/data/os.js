@@ -677,6 +677,13 @@ export const os = {
         description: '',
         tier: 3,
     },
+    oathswornScoutsGuild: {
+        name: 'Oathsworn <Scouts Guild>',
+        description: '',
+        tier: 1,
+        restrictedSkills: ['oathswornBank'],
+        consumesHeadSpace: false,
+    },
     tnsSpiral: {
         name: 'TNS Spiral',
         description: '',
@@ -702,6 +709,8 @@ export const os = {
         name: 'Oathsworn <Bank>',
         description: '',
         tier: 1,
+        restrictedSkills: ['oathswornScoutsGuild'],
+        consumesHeadSpace: false,
     },
     bankAdvisorClerk: {
         name: 'Bank Advisor (Clerk)',
@@ -731,6 +740,7 @@ export const os = {
         name: 'General Knowledge <X>',
         description: '',
         tier: 1,
+        consumesHeadSpace: false,
     },
     newsmonger: {
         description: '',

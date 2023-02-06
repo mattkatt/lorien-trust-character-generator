@@ -22,7 +22,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
     const isDisabled: false | string = useMemo(() => {
         let disabledMsg = '';
 
-        if (skill.tier > 0 && skill.consumesHeadSpace && headSpace() <= 0) {
+        if (skill.tier > 0 && skill.consumesHeadSpace && !skill.replaces && headSpace() <= 0) {
             disabledMsg += 'Not enough head space.\n';
         }
 

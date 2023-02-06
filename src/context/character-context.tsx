@@ -1,4 +1,5 @@
 import { createContext, FC, useEffect, useState } from 'react';
+import { notification } from 'antd';
 import { Skill } from '../data/models/skill';
 import { useDataContext } from './hooks';
 
@@ -75,6 +76,25 @@ export const CharacterProvider: FC = ({ children }) => {
     };
 
     const removeSkill = (skill: Skill) => {
+        if (skill.isReplaced(state.skills)) {
+            const replacementSkill = state.skills.find((s) => {
+                if (!s.replaces) {
+                    return false;
+                }
+
+                return Array.isArray(s.replaces)
+                    ? s.replaces.includes(skill.id)
+                    : s.replaces === skill.id;
+            });
+
+            notification.error({
+                message: 'Error',
+                description: `Cannot remove skill - is replaced by ${replacementSkill?.name}`,
+            });
+
+            return;
+        }
+
         const stateCopy = {
             ...state,
             skills: state.skills.filter((s) => skill.id !== s.id),

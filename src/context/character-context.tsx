@@ -13,6 +13,7 @@ interface ICharacterContext {
     addSkill: (skill: Skill) => void;
     removeSkill: (skill: Skill) => void;
     tierFiveTotal: () => number;
+    headspace: () => number;
     reset: () => void;
 }
 
@@ -29,6 +30,7 @@ const defaultCharacterContext: ICharacterContext = {
     addSkill: () => {},
     removeSkill: () => {},
     tierFiveTotal: () => 0,
+    headspace: () => 12,
     reset: () => {},
 };
 
@@ -56,16 +58,12 @@ export const CharacterProvider: FC = ({ children }) => {
     const addSkill = (skill: Skill) => {
         const stateCopy = { ...state };
 
+        stateCopy.skills.push(skill.id);
+
         if (skill.isOS) {
-            stateCopy.skills.push(skill.id);
             stateCopy.characterOSPs += skill.cost;
         } else {
-            if (stateCopy.unspentCharacterSkillPoints >= skill.cost) {
-                stateCopy.skills.push(skill.id);
-                stateCopy.unspentCharacterSkillPoints -= skill.cost;
-            } else {
-                throw new Error('Cannot add CS Skill - not enough points');
-            }
+            stateCopy.unspentCharacterSkillPoints -= skill.cost;
         }
 
         setCharacterState(stateCopy);
@@ -93,6 +91,8 @@ export const CharacterProvider: FC = ({ children }) => {
                 : previousValue;
         }, 0);
 
+    const headspace = () => 12 - state.skills.length;
+
     const reset = () => {
         setCharacterState(defaultCharacterState);
     };
@@ -104,6 +104,7 @@ export const CharacterProvider: FC = ({ children }) => {
                 addSkill,
                 removeSkill,
                 tierFiveTotal,
+                headspace,
                 reset,
             }}
         >

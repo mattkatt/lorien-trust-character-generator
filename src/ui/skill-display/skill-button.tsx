@@ -11,7 +11,8 @@ interface ISkillButtonProps {
 
 export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
     const { appState } = useAppContext();
-    const { characterState, addSkill, removeSkill, tierFiveTotal } = useCharacterContext();
+    const { characterState, addSkill, removeSkill, headspace, tierFiveTotal } =
+        useCharacterContext();
     const { dataState } = useDataContext();
 
     const skill = dataState.skillRecord[skillId];
@@ -20,6 +21,10 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
 
     const isDisabled: false | string = useMemo(() => {
         let disabledMsg = '';
+
+        if (skill.tier > 0 && headspace() <= 0) {
+            disabledMsg += 'Not enough headspace.\n';
+        }
 
         if (skill.tier >= 5 && tierFiveTotal() >= 4) {
             disabledMsg += 'Too many tier 5 skills.\n';
@@ -65,6 +70,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
         characterState.unspentCharacterSkillPoints,
         dataState.skillRecord,
         skill,
+        headspace,
         tierFiveTotal,
     ]);
 

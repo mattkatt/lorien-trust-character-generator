@@ -1,19 +1,15 @@
 import React, { FC } from 'react';
 import { Alert, List, Popover, Typography } from 'antd';
 import { SkillDescription } from './skill-description';
-import { useCharacterContext, useDataContext } from '../../context/hooks';
+import { useCharacterContext } from '../../context/hooks';
 import { Skill } from '../../data/models/skill';
 
 const { Paragraph, Title } = Typography;
 
 export const SelectedOccupationalSkills: FC = () => {
     const { characterState } = useCharacterContext();
-    const { dataState } = useDataContext();
 
     const occupationalSkills: Array<Skill> = characterState.skills
-        .map((skillId) => {
-            return dataState.skillRecord[skillId];
-        })
         .filter((skill) => skill.isOS)
         .sort((skillA, skillB) => {
             if (skillA.tier > skillB.tier) {

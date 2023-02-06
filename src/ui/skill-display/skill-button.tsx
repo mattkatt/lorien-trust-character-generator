@@ -11,33 +11,30 @@ interface ISkillButtonProps {
 
 export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
     const { appState } = useAppContext();
-    const { characterState, addSkill, removeSkill, headspace, tierFiveTotal } =
+    const { characterState, addSkill, removeSkill, headSpace, tierFiveTotal } =
         useCharacterContext();
     const { dataState } = useDataContext();
 
     const skill = dataState.skillRecord[skillId];
 
-    const isSelected = characterState.skills.some((s) => s === skill.id);
+    const isSelected = characterState.skills.some((s) => s.id === skill.id);
 
     const isDisabled: false | string = useMemo(() => {
         let disabledMsg = '';
 
-        if (skill.tier > 0 && headspace() <= 0) {
-            disabledMsg += 'Not enough headspace.\n';
+        if (skill.tier > 0 && headSpace() <= 0) {
+            disabledMsg += 'Not enough head space.\n';
         }
 
         if (skill.tier >= 5 && tierFiveTotal() >= 4) {
             disabledMsg += 'Too many tier 5 skills.\n';
         }
 
-        skill.restrictedSkills.some((restrictedSkillId) => {
-            if (characterState.skills.includes(restrictedSkillId)) {
-                const restrictedSkill = dataState.skillRecord[restrictedSkillId];
-                disabledMsg += `Is restricted by ${restrictedSkill.name}.\n`;
-                return true;
-            }
-            return false;
-        });
+        if (skill.isRestrictedBySkills(characterState.skills)) {
+            const restrictedSkills = skill.restrictedSkills.map((id) => dataState.skillRecord[id]);
+
+            disabledMsg += `Is restricted by ${restrictedSkills.join(', ')}.\n`;
+        }
 
         const enoughCharacterSkillPoints =
             skill.tier > 0 ? true : skill.cost <= characterState.unspentCharacterSkillPoints;
@@ -49,11 +46,11 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
         const checkMeetsPrerequisites = (prerequisite: string) => {
             if (prerequisite.includes('||')) {
                 return prerequisite.split('||').some((orPrerequisite) => {
-                    return characterState.skills.some((s) => s === orPrerequisite);
+                    return characterState.skills.some((s) => s.id === orPrerequisite);
                 });
             }
 
-            return characterState.skills.some((s) => s === prerequisite);
+            return characterState.skills.some((s) => s.id === prerequisite);
         };
 
         const meetsPrerequisites = skill?.prerequisites
@@ -70,7 +67,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
         characterState.unspentCharacterSkillPoints,
         dataState.skillRecord,
         skill,
-        headspace,
+        headSpace,
         tierFiveTotal,
     ]);
 

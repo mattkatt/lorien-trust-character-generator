@@ -1,9 +1,9 @@
 import { createContext, FC, useEffect, useState } from 'react';
-import { useDataContext } from './hooks';
 import { Skill } from '../data/models/skill';
+import { useDataContext } from './hooks';
 
 interface ICharacterState {
-    skills: Array<Skill['id']>;
+    skills: Array<Skill>;
     unspentCharacterSkillPoints: number;
     characterOSPs: number;
 }
@@ -13,7 +13,7 @@ interface ICharacterContext {
     addSkill: (skill: Skill) => void;
     removeSkill: (skill: Skill) => void;
     tierFiveTotal: () => number;
-    headspace: () => number;
+    headSpace: () => number;
     reset: () => void;
 }
 
@@ -30,7 +30,7 @@ const defaultCharacterContext: ICharacterContext = {
     addSkill: () => {},
     removeSkill: () => {},
     tierFiveTotal: () => 0,
-    headspace: () => 12,
+    headSpace: () => 12,
     reset: () => {},
 };
 
@@ -45,10 +45,15 @@ export const CharacterProvider: FC = ({ children }) => {
         const storedCharacter = localStorage.getItem(CHARACTER_STATE);
 
         if (storedCharacter) {
-            const savedState = JSON.parse(storedCharacter) as ICharacterState;
+            const savedState = JSON.parse(storedCharacter);
+
+            savedState.skills = savedState.skills.map(
+                (skillId: Skill['id']) => dataState.skillRecord[skillId],
+            );
+
             setState(savedState);
         }
-    }, [setState]);
+    }, [setState, dataState.skillRecord]);
 
     const setCharacterState = (newState: ICharacterState) => {
         setState(newState);
@@ -58,7 +63,7 @@ export const CharacterProvider: FC = ({ children }) => {
     const addSkill = (skill: Skill) => {
         const stateCopy = { ...state };
 
-        stateCopy.skills.push(skill.id);
+        stateCopy.skills.push(skill);
 
         if (skill.isOS) {
             stateCopy.characterOSPs += skill.cost;
@@ -72,7 +77,7 @@ export const CharacterProvider: FC = ({ children }) => {
     const removeSkill = (skill: Skill) => {
         const stateCopy = {
             ...state,
-            skills: state.skills.filter((skillId) => skill.id !== skillId),
+            skills: state.skills.filter((s) => skill.id !== s.id),
         };
 
         if (skill.isOS) {
@@ -85,13 +90,21 @@ export const CharacterProvider: FC = ({ children }) => {
     };
 
     const tierFiveTotal = () =>
-        state.skills.reduce((previousValue, currentValue) => {
-            return dataState.skillRecord[currentValue].tier === 5
-                ? previousValue + 1
-                : previousValue;
+        state.skills.reduce((accumulator, skill) => {
+            return skill.tier === 5 ? accumulator + 1 : accumulator;
         }, 0);
 
-    const headspace = () => 12 - state.skills.length;
+    const headSpace = () => {
+        const headSpaceReducedBy = state.skills.reduce((accumulator, currentSkill) => {
+            if (currentSkill.isOS && currentSkill.consumesHeadSpace) {
+                return currentSkill.isReplaced(state.skills) ? accumulator : accumulator + 1;
+            }
+
+            return accumulator;
+        }, 0);
+
+        return 12 - headSpaceReducedBy;
+    };
 
     const reset = () => {
         setCharacterState(defaultCharacterState);
@@ -104,7 +117,7 @@ export const CharacterProvider: FC = ({ children }) => {
                 addSkill,
                 removeSkill,
                 tierFiveTotal,
-                headspace,
+                headSpace,
                 reset,
             }}
         >

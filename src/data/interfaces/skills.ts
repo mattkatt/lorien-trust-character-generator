@@ -7,5 +7,6 @@ export type ISkill = {
     prerequisites: Array<ISkill['id']>;
     restrictedSkills: Array<ISkill['id']>;
     restrictedPurchase: boolean;
+    consumesHeadSpace: boolean;
     replaces?: ISkill['id'] | Array<ISkill['id']>;
 };

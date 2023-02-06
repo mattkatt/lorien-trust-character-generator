@@ -11,6 +11,7 @@ export class Skill implements ISkill {
     readonly prerequisites: Array<ISkill['id']>;
     readonly restrictedSkills: Array<ISkill['id']>;
     readonly restrictedPurchase: boolean;
+    readonly consumesHeadSpace: boolean;
     readonly replaces?: ISkill['id'] | Array<ISkill['id']>;
 
     constructor(props: Partial<ISkill>) {
@@ -22,11 +23,34 @@ export class Skill implements ISkill {
         this.prerequisites = props.prerequisites ?? [];
         this.restrictedSkills = props.restrictedSkills ?? [];
         this.restrictedPurchase = props.restrictedPurchase ?? false;
+        this.consumesHeadSpace = props.consumesHeadSpace ?? this.tier > 0;
         this.replaces = props.replaces;
     }
 
-    get isOS() {
+    get isOS(): boolean {
         return this.tier > 0;
+    }
+
+    isRestrictedBySkills(characterSkills: Array<Skill>): boolean {
+        return characterSkills.some((skill) => {
+            return this.restrictedSkills.includes(skill.id);
+        });
+    }
+
+    isReplaced(characterSkills: Array<Skill>): boolean {
+        return characterSkills.some((skill) => {
+            if (!skill.replaces) {
+                return false;
+            }
+
+            return Array.isArray(skill.replaces)
+                ? skill.replaces.includes(this.id)
+                : skill.replaces === this.id;
+        });
+    }
+
+    toJSON() {
+        return this.id;
     }
 
     toString() {

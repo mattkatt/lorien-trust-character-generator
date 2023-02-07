@@ -66,10 +66,12 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill, disabled
     };
 
     return (
-        <div style={{ maxWidth: '60vw' }}>
+        <div style={{ maxWidth: '40vw', whiteSpace: 'break-spaces' }}>
             {getInfo()}
             {skill.description}
-            {disabled ? <Alert message={disabled} type='error' /> : null}
+            {disabled ? (
+                <Alert message={disabled} type='error' style={{ marginTop: '8px' }} />
+            ) : null}
         </div>
     );
 };

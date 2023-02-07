@@ -76,6 +76,20 @@ export const CharacterProvider: FC = ({ children }) => {
     };
 
     const removeSkill = (skill: Skill) => {
+        if (!skill.isOS) {
+            const csIsRequired = state.skills.find((s) => {
+                // @todo - do complete check to include double-bar prerequisites
+                return s.prerequisites.includes(skill.id);
+            });
+
+            if (csIsRequired) {
+                notification.error({
+                    message: 'Error',
+                    description: `Cannot remove CS - is required by ${csIsRequired.name}`,
+                });
+            }
+        }
+
         if (skill.isReplaced(state.skills)) {
             const replacementSkill = state.skills.find((s) => {
                 if (!s.replaces) {

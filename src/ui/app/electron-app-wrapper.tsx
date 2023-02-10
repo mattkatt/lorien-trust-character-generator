@@ -14,7 +14,7 @@ export const ElectronAppWrapper: FC = ({ children }) => {
     const electron = window.electron;
 
     if (!electron) {
-        return null;
+        return <>{children}</>;
     }
 
     const { ipcRenderer } = electron;

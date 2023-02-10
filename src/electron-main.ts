@@ -1,3 +1,4 @@
+import path from 'path';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import isDev from 'electron-is-dev';
 
@@ -10,7 +11,7 @@ function createWindow() {
         frame: false,
         webPreferences: {
             nodeIntegration: true,
-            preload: './electron-preload.js',
+            preload: path.join(__dirname, 'electron-preload.js'),
         },
     });
 
@@ -28,7 +29,7 @@ function createWindow() {
         win.loadURL('http://localhost:3000');
         win.webContents.openDevTools({ mode: 'detach' });
     } else {
-        win.loadFile('index.html');
+        win.loadFile(path.join(__dirname, 'index.html'));
     }
 }
 

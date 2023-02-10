@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
 import { Layout } from 'antd';
 
+const { Footer } = Layout;
+
 export const AppFooter: FC = ({ children }) => {
     return (
-        <Layout.Footer
+        <Footer
             style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -12,6 +14,6 @@ export const AppFooter: FC = ({ children }) => {
             }}
         >
             {children}
-        </Layout.Footer>
+        </Footer>
     );
 };

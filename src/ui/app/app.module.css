@@ -1,0 +1,58 @@
+.app {
+    height: 100vh;
+    -webkit-user-select: none;
+}
+
+.app .appBar {
+    height: 32px;
+    color: white;
+    background: black;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-app-region: drag;
+}
+
+.app .appBar .title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 6px;
+}
+
+.app .appBar .controls {
+    display: flex;
+    flex: 0 0 auto;
+    -webkit-app-region: no-drag;
+}
+
+.app .appBar .controls .control {
+    height: 100%;
+    width: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app .appBar .controls .control:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.app .appBar .controls .control:active {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.app .appBar .controls .control.close:hover {
+    background: rgb(170, 0, 0, 1);
+}
+
+.app .appBar .controls .control.close:active {
+    background: rgba(170, 0, 0, 0.75);
+}
+
+.app .appContent {
+    height: calc(100% - 32px);
+    overflow-y: scroll;
+}

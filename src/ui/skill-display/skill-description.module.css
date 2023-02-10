@@ -1,0 +1,5 @@
+.skillDescription {
+    max-width: 40vw;
+    white-space: break-spaces;
+    -webkit-user-select: none;
+}

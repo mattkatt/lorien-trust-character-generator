@@ -1,20 +1,25 @@
 import React, { FC } from 'react';
 import { Layout } from 'antd';
 
-export const SidePanel: FC = ({ children }) => {
+const { Sider } = Layout;
+
+interface ISidePanelProps {
+    width: number;
+}
+
+export const SidePanel: FC<ISidePanelProps> = ({ width, children }) => {
     return (
-        <Layout.Sider
+        <Sider
             theme='light'
-            width={260}
+            width={width}
             style={{
                 overflowY: 'scroll',
-                overflowX: 'hidden',
-                height: '100vh',
+                height: 'calc(100% - 32px)',
                 position: 'fixed',
                 left: 0,
             }}
         >
             {children}
-        </Layout.Sider>
+        </Sider>
     );
 };

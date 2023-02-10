@@ -3,6 +3,8 @@ import { Alert } from 'antd';
 import { useDataContext } from '../../context/hooks';
 import { Skill } from '../../data/models/skill';
 
+import styles from './skill-description.module.css';
+
 interface ISkillPopoverDescription {
     skill: Skill;
     disabled?: false | string;
@@ -13,20 +15,23 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill, disabled
     const { skillRecord } = dataState;
 
     const getInfo = () => {
-        const prerequisites = skill.prerequisites
-            ? skill.prerequisites
-                  .map((skill) => {
-                      if (skill.includes('||')) {
-                          return skill
-                              .split('||')
-                              .map((s) => skillRecord[s].name)
-                              .join(' OR ');
-                      }
+        const prerequisites =
+            skill.prerequisites.length > 0 ? (
+                skill.prerequisites
+                    .map((skill) => {
+                        if (skill.includes('||')) {
+                            return skill
+                                .split('||')
+                                .map((s) => skillRecord[s].name)
+                                .join(' OR ');
+                        }
 
-                      return skillRecord[skill].name;
-                  })
-                  .join(', ')
-            : null;
+                        return skillRecord[skill].name;
+                    })
+                    .join(', ')
+            ) : (
+                <i>None</i>
+            );
 
         if (skill.tier > 0) {
             const replaces = () => {
@@ -47,7 +52,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill, disabled
                     <br />
                     <b>Tier:</b> {skill.tier}
                     <br />
-                    <b>Prerequisites:</b> {prerequisites ?? <i>None</i>}
+                    <b>Prerequisites:</b> {prerequisites}
                     <br />
                     <b>Replaces:</b> {replaces()}
                     <br />
@@ -66,7 +71,7 @@ export const SkillDescription: FC<ISkillPopoverDescription> = ({ skill, disabled
     };
 
     return (
-        <div style={{ maxWidth: '40vw', whiteSpace: 'break-spaces' }}>
+        <div className={styles.skillDescription}>
             {getInfo()}
             {skill.description}
             {disabled ? (

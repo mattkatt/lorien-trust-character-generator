@@ -11,8 +11,11 @@
 # testing
 /coverage
 
-# production
+# built files
 /build
+
+# production
+/out
 
 # misc
 .DS_Store

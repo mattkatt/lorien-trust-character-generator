@@ -54,8 +54,8 @@
         "test": "jest",
         "eject": "react-scripts eject",
         "prettier": "npx prettier --write .",
-        "package": "tsc && electron-forge package",
-        "make": "tsc && electron-forge make"
+        "package": "npm run build && electron-forge package",
+        "make": "npm run build && electron-forge make"
     },
     "eslintConfig": {
         "extends": [

@@ -1,6 +1,7 @@
 {
     "name": "lorien-trust-character-generator",
     "description": "Desktop application for managing character skill sin the Lorien Trust LARP system",
+    "author": "@mattkatt",
     "version": "0.1.0",
     "license": "UNLICENSED",
     "private": true,

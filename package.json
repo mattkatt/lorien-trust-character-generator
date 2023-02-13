@@ -48,7 +48,7 @@
     },
     "scripts": {
         "start": "electron-forge start",
-        "clean": "rimraf ./build",
+        "clean": "rimraf ./build ./out",
         "copy-css": "copyfiles -u 1 ./src/**/*.module.css ./build/",
         "build": "npm run clean && tsc && npm run copy-css",
         "test": "jest",

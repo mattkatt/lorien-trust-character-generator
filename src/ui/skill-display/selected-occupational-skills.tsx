@@ -26,7 +26,7 @@ export const SelectedOccupationalSkills: FC = () => {
         const isOverwritten = occupationalSkills.some((osSkill) => osSkill.replaces === skill.id);
 
         return isOverwritten ? null : (
-            <li key={skill.id}>
+            <li key={skill.id} style={{lineHeight: 1.15, marginBottom: 6}}>
                 <Popover
                     content={<SkillDescription skill={skill} />}
                     title={skill.name}
@@ -39,8 +39,9 @@ export const SelectedOccupationalSkills: FC = () => {
     });
 
     return (
-        <div style={{ backgroundColor: 'white', padding: '23px' }}>
-            <Title level={3}>Selected Occupational Skills:</Title>
+        <div style={{ position: 'sticky', top: 0, padding: 15 }}>
+            <Title level={3}>Selected Occupational Skills</Title>
+
             {skillsToDisplay.length <= 0 ? (
                 <Alert message='No skills selected' />
             ) : (
@@ -48,6 +49,11 @@ export const SelectedOccupationalSkills: FC = () => {
                     Total OSPs: <b>{characterState.characterOSPs}</b>
                 </Paragraph>
             )}
+
+            {characterState.unspentCharacterSkillPoints ? (
+                <Alert message='You have unspent character skill points' type='warning' style={{marginBottom: '15px'}} />
+            ) : null}
+
             <List>{skillsToDisplay}</List>
         </div>
     );

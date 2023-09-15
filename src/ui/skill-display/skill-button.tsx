@@ -88,7 +88,7 @@ export const SkillButton: FC<ISkillButtonProps> = ({ skillId }) => {
                 <SkillDescription skill={skill} disabled={!isSelected ? isDisabled : undefined} />
             }
             placement={'rightBottom'}
-            mouseEnterDelay={0.66}
+            mouseEnterDelay={0.5}
         >
             <Button
                 block

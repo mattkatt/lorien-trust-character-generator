@@ -1,16 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Alert, Col, Row, Typography } from 'antd';
+import { Col, Layout, Row, Typography } from 'antd';
 
 import { SelectedOccupationalSkills } from './selected-occupational-skills';
 import { OccupationalSkillList } from './occupational-skill-list';
-import { useCharacterContext, useDataContext } from '../../context/hooks';
+import { useDataContext } from '../../context/hooks';
 
 type breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
+const { Content } = Layout;
 const { Title } = Typography;
 
 export const OccupationalSkill: FC = () => {
-    const { characterState } = useCharacterContext();
     const { dataState } = useDataContext();
     const [size, setSize] = useState<breakpoint>('xs');
 
@@ -59,34 +59,26 @@ export const OccupationalSkill: FC = () => {
     };
 
     return (
-        <>
-            <Row style={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Col span={24}>
-                    <SelectedOccupationalSkills />
-
-                    {characterState.unspentCharacterSkillPoints ? (
-                        <Alert message='You have unspent character skill points' type='warning' />
-                    ) : null}
-                </Col>
-            </Row>
-
-            <Row style={{ margin: '15px' }} gutter={16}>
-                <Col span={24}>
-                    <Title level={3}>Available Skills:</Title>
-                </Col>
-            </Row>
-
-            <Row style={{ margin: '15px' }} gutter={16}>
-                {Object.keys(dataState.osList).map((skillListKey) => (
-                    <Col
-                        span={getColSpan(size)}
-                        key={skillListKey}
-                        style={{ marginBottom: '16px' }}
-                    >
-                        <OccupationalSkillList skillListKey={skillListKey} />
-                    </Col>
-                ))}
-            </Row>
-        </>
+        <Row>
+            <Col span={20} style={{ padding: '15px' }}>
+                <Title level={3}>Available Skills</Title>
+                <Content>
+                    <Row gutter={16}>
+                        {Object.keys(dataState.osList).map((skillListKey) => (
+                            <Col
+                                span={getColSpan(size)}
+                                key={skillListKey}
+                                style={{ marginBottom: '16px' }}
+                            >
+                                <OccupationalSkillList skillListKey={skillListKey} />
+                            </Col>
+                        ))}
+                    </Row>
+                </Content>
+            </Col>
+            <Col span={4} style={{backgroundColor: 'white' }}>
+                <SelectedOccupationalSkills/>
+            </Col>
+        </Row>
     );
 };

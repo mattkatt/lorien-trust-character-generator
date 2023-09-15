@@ -11,6 +11,8 @@ export const AppFooter: FC = ({ children }) => {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
+                position: 'sticky',
+                bottom: 0,
             }}
         >
             {children}

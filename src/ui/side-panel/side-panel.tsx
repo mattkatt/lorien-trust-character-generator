@@ -14,7 +14,7 @@ export const SidePanel: FC<ISidePanelProps> = ({ width, children }) => {
             width={width}
             style={{
                 overflowY: 'scroll',
-                height: 'calc(100% - 32px)',
+                height: '100%',
                 position: 'fixed',
                 left: 0,
             }}

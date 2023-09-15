@@ -53,6 +53,6 @@
 }
 
 .app .appContent {
-    height: calc(100% - 32px);
+    height: 100%;
     overflow-y: scroll;
 }

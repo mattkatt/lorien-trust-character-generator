@@ -16,7 +16,7 @@ export const CharacterSkills: FC = () => {
 
     return (
         <>
-            <TextBox>
+            <TextBox sticky>
                 <Title level={3}>Character Skills</Title>
                 <Paragraph>
                     Skill Point Spend: {16 - characterState.unspentCharacterSkillPoints} / 16

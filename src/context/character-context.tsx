@@ -86,6 +86,7 @@ export const CharacterProvider: FC = ({ children }) => {
                 notification.error({
                     message: 'Error',
                     description: `Cannot remove CS - is required by ${csIsRequired.name}`,
+                    placement: 'top'
                 });
             }
         }
@@ -104,6 +105,7 @@ export const CharacterProvider: FC = ({ children }) => {
             notification.error({
                 message: 'Error',
                 description: `Cannot remove skill - is replaced by ${replacementSkill?.name}`,
+                placement: 'top'
             });
 
             return;

@@ -4,7 +4,6 @@ import { Layout } from 'antd';
 import { ContextWrapper } from './context/context-wrapper';
 import { AppFooter } from './ui/app/app-footer';
 import { AppSettings } from './ui/app/app-settings';
-import { ElectronAppWrapper } from './ui/app/electron-app-wrapper';
 import { SidePanel } from './ui/side-panel/side-panel';
 import { OccupationalSkill } from './ui/skill-display/occupational-skill';
 import { CharacterSkills } from './ui/skill-display/character-skills';
@@ -18,27 +17,25 @@ const App: FC = () => {
 
     return (
         <ContextWrapper>
-            <ElectronAppWrapper>
-                <Layout>
-                    <SidePanel width={sidePanelWidth}>
-                        <CharacterSkills />
-                        <AppSettings />
-                    </SidePanel>
+            <Layout>
+                <SidePanel width={sidePanelWidth}>
+                    <CharacterSkills />
+                    <AppSettings />
+                </SidePanel>
 
-                    <Layout style={{ marginLeft: sidePanelWidth }}>
-                        <Content>
-                            <OccupationalSkill />
-                        </Content>
-                        <AppFooter>
-                            <span>
-                                Creative Content &copy;{' '}
-                                <a href='https://lorientrust.com/'>Lorien Trust</a> | App by{' '}
-                                <a href='https://github.com/mattkatt'>Matt Evans</a>
-                            </span>
-                        </AppFooter>
-                    </Layout>
+                <Layout style={{ marginLeft: sidePanelWidth }}>
+                    <Content>
+                        <OccupationalSkill />
+                    </Content>
+                    <AppFooter>
+                        <span>
+                            Creative Content &copy;{' '}
+                            <a href='https://lorientrust.com/'>Lorien Trust</a> | App by{' '}
+                            <a href='https://github.com/mattkatt'>Matt Evans</a>
+                        </span>
+                    </AppFooter>
                 </Layout>
-            </ElectronAppWrapper>
+            </Layout>
         </ContextWrapper>
     );
 };

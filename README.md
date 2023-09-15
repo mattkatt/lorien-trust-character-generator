@@ -1,8 +1,15 @@
 # Lorien Trust Character Generator
 
-Generate character CS/OS list, for use with the Lorien Trust game system
+Generate character CS/OS list, for use with the Lorien Trust game system (v4.06)
 
 All creative content &copy; [Lorient Trust](https://lorientrust.com/)
+
+## To Do
+
+- [ ] Display non-headspace skills in separate list
+- [ ] Implement ability to define <X> skills, while keeping them generic for purpose of prerequisites
+- [ ] Implement possible changes from lore sheets (awakened, summonable, essence, etc)
+- [ ] Style for mobile(?)
 
 ---
 
